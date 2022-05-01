@@ -1,0 +1,437 @@
+C251 COMPILER V5.60.0,  ccd                                                                30/04/22  21:52:43  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE ccd
+OBJECT MODULE PLACED IN .\Out_File\ccd.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\CODE\ccd.c XSMALL INTR2 WARNINGLEVEL(3) BROWSE INCDIR(..\..\Librari
+                    -es\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src) DEB
+                    -UG PRINT(.\Out_File\ccd.lst) OBJECT(.\Out_File\ccd.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          
+    3          float ccd_cbh11,ccd_cbh12,ccd_cbh21,ccd_cbh22;
+    4          int Lboundary_data,Rboundary_data,Lboundary_data2,Rboundary_data2;
+    5          int mid=64,df,ts_hold;
+    6          int road_width1,road_width2;
+    7          
+    8          int black,Rboundary_black,Lboundary_black,Rboundary_black2,Lboundary_black2;
+    9          int outblack_cbh1,outblack_cbh2;
+   10          int Outside_black1,Outside_black2;
+   11          float black_cbh11,black_cbh12,black_cbh21,black_cbh22;
+   12          int Broad_width1,Broad_width2;
+   13          
+   14          uint8 Auto = 0; //动态阈值
+   15          int16 Threshold = 400;
+   16          
+   17          uint16 ccd_valu[128][4];
+   18          uint16  ccd_valu1[128][4],ccd_value[128],ccd_sum[128];
+   19          
+   20          /**
+   21          *  @name   : ccd_filter
+   22          *  @tips   : ccd滤波
+   23          */
+   24          void ccd_filter()
+   25          {
+   26   1          int16  i,j,k,temp;
+   27   1          
+   28   1          for(j=0;j<4;j++)    
+   29   1           {  
+   30   2               for(i=0;i<128;i++)     
+   31   2               {
+   32   3                ccd_valu[i][j]=ccd_data[i];      
+   33   3               }
+   34   2           }
+   35   1           
+   36   1           for(i=0;i<128;i++)
+   37   1           {
+   38   2              for(j=0;j<4;j++)
+   39   2              {
+   40   3                 for(k=0;k<4-j;k++)
+   41   3                 {
+   42   4                    if(ccd_valu1[i][k] > ccd_valu1[i][k+1])        //前面的比后面的大  则进行交换
+   43   4                    {
+   44   5                       temp = ccd_valu1[i][k+1];
+   45   5                       ccd_valu1[i][k+1] = ccd_valu1[i][k];
+   46   5                       ccd_valu1[i][k] = temp;
+   47   5                    }
+   48   4                 }
+   49   3              }
+   50   2           }
+   51   1           
+   52   1          for(i=0;i<128;i++)    
+   53   1           {
+   54   2              ccd_sum[i] = ccd_valu[i][1] + ccd_valu[i][2] + ccd_valu[i][3];
+   55   2              ccd_value[i] = ccd_sum[i] / 3;
+   56   2           }
+   57   1           
+C251 COMPILER V5.60.0,  ccd                                                                30/04/22  21:52:43  PAGE 2   
+
+   58   1      }
+   59          
+   60          uint16 ccd_valu2[128][4];
+   61          uint16  ccd_valu2[128][4],ccd_value2[128],ccd_sum2[128];
+   62          
+   63          /**
+   64          *  @name   : ccd_filter2
+   65          *  @tips   : ccd2滤波
+   66          */
+   67          void ccd_filter2()
+   68          {
+   69   1          int16  i,j,k,temp;
+   70   1          
+   71   1          for(j=0;j<4;j++)    
+   72   1           {  
+   73   2               for(i=0;i<128;i++)     
+   74   2               {
+   75   3                ccd_valu2[i][j]=ccd_data2[i];      
+   76   3               }
+   77   2           }
+   78   1           
+   79   1           for(i=0;i<128;i++)
+   80   1           {
+   81   2              for(j=0;j<4;j++)
+   82   2              {
+   83   3                 for(k=0;k<4-j;k++)
+   84   3                 {
+   85   4                    if(ccd_valu2[i][k] > ccd_valu2[i][k+1])        //前面的比后面的大  则进行交换
+   86   4                    {
+   87   5                       temp = ccd_valu2[i][k+1];
+   88   5                       ccd_valu2[i][k+1] = ccd_valu2[i][k];
+   89   5                       ccd_valu2[i][k] = temp;
+   90   5                    }
+   91   4                 }
+   92   3              }
+   93   2           }
+   94   1           
+   95   1          for(i=0;i<128;i++)    
+   96   1           {
+   97   2              ccd_sum2[i] = ccd_valu2[i][1] + ccd_valu2[i][2] + ccd_valu2[i][3];
+   98   2              ccd_value2[i] = ccd_sum2[i] / 3;
+   99   2           }
+  100   1      }
+  101          
+  102           /**
+  103          *  @name   : Ccd_cbh
+  104          *  @tips   : CCD图像差比和
+  105          */
+  106          uint8 ImageDiff[128];
+  107          void Ccd_cbh(uint8 *image)
+  108          {
+  109   1              uint8 i;
+  110   1              for(i = 0;i < 128 ;i++)
+  111   1              {
+  112   2                      *(ImageDiff+i) = abs(*(image+i) - *(image+i+6))/(*(image+i) + *(image+i+6)); //保存数据 绝对值
+  113   2                      
+  114   2              }
+  115   1      }
+  116          
+  117          /**
+  118          *  @name   : CCD_Average
+  119          *  @tips   : 
+  120          */
+  121          uint16 CCD_Average(uint8 *image)
+  122          {
+  123   1              uint8 i;
+C251 COMPILER V5.60.0,  ccd                                                                30/04/22  21:52:43  PAGE 3   
+
+  124   1              uint16 sum = 0;
+  125   1              uint16 ccd_average1;
+  126   1              
+  127   1                      for(i = 0; i < 128; i++)
+  128   1                      {
+  129   2                              sum += *(image + i);
+  130   2                              
+  131   2                      }
+  132   1      
+  133   1              ccd_average1 = sum / 128;
+  134   1              
+  135   1              return ccd_average1;
+  136   1      }
+  137          
+  138          /**
+  139          *  @name   : Auto_Threshold
+  140          *  @tips   : 动态阈值计算
+  141          */
+  142          uint16 Sum = 0;
+  143          uint16 cbh_Average = 0;
+  144          uint16 AD_Average = 0;
+  145          uint8  Auto_Threshold(uint8 *image)
+  146          {
+  147   1              uint8 i;
+  148   1              uint8 New_Threshold;
+  149   1              Sum = 0;
+  150   1          
+  151   1              for(i = 0;i < 128;i++)
+  152   1              {
+  153   2                      *(ImageDiff + i) = abs(*(image+i) - *(image+i+6))*1000/(*(image+i) + *(image+i+6)); //保存数据 绝对值
+  154   2                      Sum += *(ImageDiff + i); //求和
+  155   2              }
+  156   1          
+  157   1              cbh_Average = Sum / 128; //平均差分
+  158   1              AD_Average = CCD_Average(image); //CCD平均电压值
+  159   1              New_Threshold = AD_Average / 6 + cbh_Average; //阈值
+  160   1              
+  161   1              return New_Threshold;
+  162   1      }
+  163          
+  164          /**
+  165          *  @name   : ccd_xj
+  166          *  @tips   : CCD寻迹
+  167          */
+  168          int black_flag,all_black1,all_black2,all_white1,all_white2;
+  169          void ccd_xj()
+  170          {
+  171   1          int i,j;
+  172   1          
+  173   1          for(j=0;j<128;j++)
+  174   1          {
+  175   2              if(ccd_value[j]>230)
+  176   2              {
+  177   3                  break;
+  178   3              }
+  179   2              else if(j==128)
+  180   2              {
+  181   3                  all_black1 = 1;
+  182   3              }
+  183   2              if(ccd_value2[j]>230)
+  184   2              {
+  185   3                  break;
+  186   3              }
+  187   2              else  if(j==128)
+  188   2              {
+  189   3                  all_black2 = 1;
+C251 COMPILER V5.60.0,  ccd                                                                30/04/22  21:52:43  PAGE 4   
+
+  190   3              }
+  191   2              
+  192   2              if(ccd_value[j]<230)
+  193   2              {
+  194   3                  break;
+  195   3              }
+  196   2              else if(j==128)
+  197   2              {
+  198   3                  all_white1 = 1;
+  199   3              }
+  200   2              
+  201   2              if(ccd_value2[j]<230)
+  202   2              {
+  203   3                  break;
+  204   3              }
+  205   2              else  if(j==128)
+  206   2              {
+  207   3                  all_white2 = 1;
+  208   3              }
+  209   2          }
+  210   1          
+  211   1      //    if(Auto == 1) { //开启动态阈值
+  212   1      //              Threshold = Auto_Threshold(line);
+  213   1      //      }
+  214   1      //      for(j=50;j<80;j++)
+  215   1      //      {
+  216   1                      if(ccd_value2[mid]>230&&all_black2!=0&&all_white2!=0)//中间>230扫白边，<230扫黑边
+  217   1                      {
+  218   2                              Rboundary_black = 0;
+  219   2                              Lboundary_black = 0;
+  220   2                              Rboundary_black2 = 0;
+  221   2                              Lboundary_black2 = 0;
+  222   2                      }
+  223   1      //              if(ccd_value[j]<240)
+  224   1                      else
+  225   1                      {
+  226   2                    
+  227   2                                for(i=mid;i<123;i++)
+  228   2                                      {
+  229   3                                                      black_cbh11=(float)(ccd_value[i+5]-ccd_value[i])/(ccd_value[i]+ccd_value[i+5])*1000;
+  230   3      
+  231   3                                                      if(black_cbh11>Threshold)
+  232   3                                                      {
+  233   4                                                                      Rboundary_black = i;
+  234   4                                                                      break;
+  235   4                                                      }
+  236   3                                                      else
+  237   3                                                      {
+  238   4                                                                      Rboundary_black = 123;
+  239   4                                                      }
+  240   3                                      } 
+  241   2                                      
+  242   2                                      for(i=mid;i<123;i++)
+  243   2                                      {
+  244   3                                                      black_cbh21=(float)(ccd_value2[i+5]-ccd_value2[i])/(ccd_value2[i]+ccd_value2[i+5])*1000;
+  245   3      
+  246   3                                                      if(black_cbh21>Threshold)
+  247   3                                                      {
+  248   4                                                                      Rboundary_black2 = i;
+  249   4                                                                      break;
+  250   4                                                      }
+  251   3                                                      else
+  252   3                                                      {
+  253   4                                                                      Rboundary_black2 = 123;
+  254   4                                                      }
+  255   3                                      } 
+C251 COMPILER V5.60.0,  ccd                                                                30/04/22  21:52:43  PAGE 5   
+
+  256   2          
+  257   2                                      for(i=mid;i>=5;i--)
+  258   2                                      {   
+  259   3                                                      black_cbh12=(float)(ccd_value[i-5]-ccd_value[i])/(ccd_value[i]+ccd_value[i-5])*1000;
+  260   3              
+  261   3                                                      if(black_cbh12>Threshold)
+  262   3                                                      {
+  263   4                                                                      Lboundary_black = i;
+  264   4                                                                      break;
+  265   4                                                      }
+  266   3                                                      else
+  267   3                                                      {
+  268   4                                                                      Lboundary_black = 5;
+  269   4                                                      }
+  270   3                                      }
+  271   2          
+  272   2                                      for(i=mid;i>=5;i--)
+  273   2                                      {   
+  274   3                                      black_cbh22=(float)(ccd_value2[i-5]-ccd_value2[i])/(ccd_value2[i]+ccd_value2[i-5])*1000;
+  275   3                              
+  276   3                                                      if(black_cbh22>Threshold)
+  277   3                                                      {
+  278   4                                                                      Lboundary_black2 = i;
+  279   4                                                                      break;
+  280   4                                                      }
+  281   3                                                      else
+  282   3                                                      {
+  283   4                                                                      Lboundary_black2 = 5;
+  284   4                                                      }
+  285   3                                      }
+  286   2                      //外黑线
+  287   2                      for(i=0;i<128;i++)
+  288   2                                      {   
+  289   3                                      outblack_cbh1=(float)(ccd_value[i+5]-ccd_value[i])/(ccd_value[i]+ccd_value[i+5])*1000;
+  290   3                              
+  291   3                                                      if(outblack_cbh1>Threshold)
+  292   3                                                      {
+  293   4                                                                      Outside_black1 = i;
+  294   4                                                                      break;
+  295   4                                                      }
+  296   3                                                      else
+  297   3                                                      {
+  298   4                                                                      Outside_black1 = 0;
+  299   4                                                      }
+  300   3                                      }
+  301   2                      
+  302   2                      for(i=128;i>=0;i--)
+  303   2                                      {   
+  304   3                                      outblack_cbh2=(float)(ccd_value[i-5]-ccd_value[i])/(ccd_value[i]+ccd_value[i-5])*1000;
+  305   3                              
+  306   3                                                      if(outblack_cbh2>Threshold)
+  307   3                                                      {
+  308   4                                                                      Outside_black2 = i;
+  309   4                                                                      break;
+  310   4                                                      }
+  311   3                                                      else
+  312   3                                                      {
+  313   4                                                                      Outside_black2 = 127;
+  314   4                                                      }
+  315   3                                      }
+  316   2                      }
+  317   1      //      }
+  318   1          
+  319   1          //ccd_data[128]//128个数据，中间64，从64向左右扫描
+  320   1          for(i=mid;i<123;i++)
+  321   1          {
+C251 COMPILER V5.60.0,  ccd                                                                30/04/22  21:52:43  PAGE 6   
+
+  322   2              ccd_cbh11=(float)(ccd_value[i]-ccd_value[i+5])/(ccd_value[i]+ccd_value[i+5])*1000;
+  323   2      
+  324   2              if(ccd_cbh11>Threshold)
+  325   2              {
+  326   3                  
+  327   3                  Rboundary_data = i;
+  328   3                  break;
+  329   3              }
+  330   2              else
+  331   2              {
+  332   3                  Rboundary_data = 123;
+  333   3              }
+  334   2          } 
+  335   1          
+  336   1          for(i=mid;i<123;i++)
+  337   1          {
+  338   2                      ccd_cbh21=(float)(ccd_value2[i]-ccd_value2[i+5])/(ccd_value2[i]+ccd_value2[i+5])*1000;
+  339   2      
+  340   2                      if(ccd_cbh21>Threshold)
+  341   2              {
+  342   3                  
+  343   3                  Rboundary_data2 = i;
+  344   3                  break;
+  345   3              }
+  346   2              else
+  347   2              {
+  348   3                  Rboundary_data2 = 123;
+  349   3              }
+  350   2          } 
+  351   1          
+  352   1          for(i=mid;i>=5;i--)
+  353   1          {   
+  354   2              ccd_cbh12=(float)(ccd_value[i]-ccd_value[i-5])/(ccd_value[i]+ccd_value[i-5])*1000;
+  355   2              
+  356   2              if(ccd_cbh12>Threshold)
+  357   2              {
+  358   3                  Lboundary_data = i;
+  359   3                  break;
+  360   3              }
+  361   2              else
+  362   2              {
+  363   3                  Lboundary_data = 5;
+  364   3              }
+  365   2          }
+  366   1          
+  367   1           for(i=mid;i>=5;i--)
+  368   1          {   
+  369   2                      ccd_cbh22=(float)(ccd_value2[i]-ccd_value2[i-5])/(ccd_value2[i]+ccd_value2[i-5])*1000;
+  370   2              
+  371   2              if(ccd_cbh22>Threshold)
+  372   2              {
+  373   3                  Lboundary_data2 = i;
+  374   3                  break;
+  375   3              }
+  376   2              else
+  377   2              {
+  378   3                  Lboundary_data2 = 5;
+  379   3              }
+  380   2          }
+  381   1          
+  382   1          mid = (Lboundary_data + Rboundary_data)/2;
+  383   1          df = Lboundary_data + Rboundary_data - 127;
+  384   1                      road_width1 = Rboundary_data - Lboundary_data;
+  385   1                      road_width2 = Rboundary_data2 - Lboundary_data2;
+  386   1                      Broad_width1 = Rboundary_black - Lboundary_black;
+  387   1                      Broad_width2 = Rboundary_black2 - Lboundary_black2;
+C251 COMPILER V5.60.0,  ccd                                                                30/04/22  21:52:43  PAGE 7   
+
+  388   1      }
+  389          
+  390          
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =      1733     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =      4315          2
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =        35     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

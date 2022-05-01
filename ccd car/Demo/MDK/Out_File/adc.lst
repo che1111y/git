@@ -1,0 +1,144 @@
+C251 COMPILER V5.60.0,  adc                                                                30/04/22  21:52:41  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE adc
+OBJECT MODULE PLACED IN .\Out_File\adc.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\CODE\adc.c XSMALL INTR2 WARNINGLEVEL(3) BROWSE INCDIR(..\..\Librari
+                    -es\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src) DEB
+                    -UG PRINT(.\Out_File\adc.lst) OBJECT(.\Out_File\adc.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          
+    3          
+    4          float                v[6]; 
+    5          uint16              var_guiyihua_min[4]={0,0,0,0};
+    6          uint16              var_guiyihua_max[4]={0,0,0,0};
+    7          float ad_value1,ad_value2,ad_value3,ad_value4;
+    8          uint16 g_ValueOfAD[6]={0};
+    9          int cbh;
+   10          
+   11          /*********************************初始化***********************************/
+   12          void dc_init()
+   13          {
+   14   1              adc_init(ADC_P00,ADC_SYSclk_DIV_2);
+   15   1              adc_init(ADC_P01,ADC_SYSclk_DIV_2);
+   16   1              adc_init(ADC_P05,ADC_SYSclk_DIV_2);
+   17   1              adc_init(ADC_P06,ADC_SYSclk_DIV_2);
+   18   1      }
+   19          
+   20          float Get_ADC(uint16 x)
+   21          {
+   22   1           uint16  i,j,k,temp;
+   23   1           uint16  ad_valu[4][5],ad_valu1[4],ad_sum[4];
+   24   1      
+   25   1           for(i=0;i<5;i++)     
+   26   1           {  
+   27   2                ad_valu[0][i]=adc_once(ADC_P00, ADC_10BIT);  
+   28   2                ad_valu[1][i]=adc_once(ADC_P01, ADC_10BIT);    
+   29   2                ad_valu[2][i]=adc_once(ADC_P05, ADC_10BIT);  
+   30   2                ad_valu[3][i]=adc_once(ADC_P06, ADC_10BIT); 
+   31   2                
+   32   2           }
+   33   1           
+   34   1           for(i=0;i<4;i++)
+   35   1          {
+   36   2            for(j=0;j<5;j++)  
+   37   2            {       
+   38   3                if(ad_valu[i][j]>var_guiyihua_max[j]) 
+   39   3                    var_guiyihua_max[j]=ad_valu[i][j];
+   40   3                if(ad_valu[i][j]<var_guiyihua_min[j])
+   41   3                    var_guiyihua_min[j]=ad_valu[i][j];
+   42   3            }
+   43   2          }
+   44   1           
+   45   1           /*====================冒泡排列==========================*/
+   46   1           for(i=0;i<4;i++)
+   47   1           {
+   48   2              for(j=0;j<5;j++)
+   49   2              {
+   50   3                 for(k=0;k<5-j;k++)
+   51   3                 {
+   52   4                    if(ad_valu[i][k] > ad_valu[i][k+1])        //前面的比后面的大  则进行交换
+   53   4                    {
+   54   5                       temp = ad_valu[i][k+1];
+   55   5                       ad_valu[i][k+1] = ad_valu[i][k];
+   56   5                       ad_valu[i][k] = temp;
+   57   5                    }
+C251 COMPILER V5.60.0,  adc                                                                30/04/22  21:52:41  PAGE 2   
+
+   58   4                 }
+   59   3              }
+   60   2           }
+   61   1           /*=====================冒泡排列==========================*/
+   62   1           
+   63   1           
+   64   1           /*====================极值平均滤波=========================*/
+   65   1           for(i=0;i<4;i++)    
+   66   1           {
+   67   2              ad_sum[i] = ad_valu[i][1] + ad_valu[i][2] + ad_valu[i][3];
+   68   2              ad_valu1[i] = ad_sum[i] / 3;
+   69   2           }
+   70   1           
+   71   1          /*====================极值平均滤波=========================*/
+   72   1           
+   73   1           /*=======================归一化============================= */
+   74   1          for(j=0;j<5;j++)
+   75   1          {
+   76   2            if(var_guiyihua_min[j]>=ad_valu1[j])    
+   77   2                {var_guiyihua_min[j]=(int)ad_valu1[j];}
+   78   2            
+   79   2            if(var_guiyihua_max[j]<=ad_valu1[j])    
+   80   2                {var_guiyihua_max[j]=(int)ad_valu1[j];}
+   81   2            
+   82   2          }
+   83   1        for(j=0;j<5;j++)
+   84   1        {
+   85   2          v[j]=(uint32)((float)(ad_valu1[j]-var_guiyihua_min[j])/(float)(var_guiyihua_max[j]-var_guiyihua_min[j
+             -])*100.0);
+   86   2        }
+   87   1        /*=========================归一化============================= */
+   88   1        
+   89   1        return v[x];
+   90   1      }
+   91          
+   92          void ADC(void)
+   93          {
+   94   1      //      ad_value1 = adc_once(ADC_P00, ADC_10BIT);
+   95   1      //      ad_value2 = adc_once(ADC_P01, ADC_10BIT);
+   96   1      //      ad_value3 = adc_once(ADC_P05, ADC_10BIT);
+   97   1      //      ad_value4 = adc_once(ADC_P06, ADC_10BIT);
+   98   1          
+   99   1            ad_value1 = Get_ADC(0);
+  100   1            ad_value2 = Get_ADC(1);
+  101   1            ad_value3 = Get_ADC(2);
+  102   1            ad_value4 = Get_ADC(3);
+  103   1            cbh = (int)(((ad_value2 - ad_value3)/(ad_value2 + ad_value3))*100.0);
+  104   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =       620     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =        70         58
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+C251 COMPILER V5.60.0,  adc                                                                30/04/22  21:52:41  PAGE 3   
+
+  hconst size          =        40     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

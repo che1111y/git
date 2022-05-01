@@ -1,0 +1,51 @@
+C251 COMPILER V5.60.0,  init                                                               30/04/22  21:52:41  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE init
+OBJECT MODULE PLACED IN .\Out_File\init.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\CODE\init.c XSMALL INTR2 WARNINGLEVEL(3) BROWSE INCDIR(..\..\Librar
+                    -ies\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src) DE
+                    -BUG PRINT(.\Out_File\init.lst) OBJECT(.\Out_File\init.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          
+    3          void init()
+    4          {
+    5   1          //uart_init(UART_2, UART2_RX_P10, UART2_TX_P11, 115200, TIM_2);
+    6   1          pit_timer_ms(TIM_4, 1);
+    7   1          pit_timer_ms(TIM_1, 5);
+    8   1          pit_timer_ms(TIM_3, 5);
+    9   1              //dc_init();
+   10   1              motor_init();
+   11   1              menu_init();
+   12   1          encoder_init();
+   13   1              steer_init();
+   14   1          ccd_init();
+   15   1          //gpio_mode(P0_2,GPO_PP);
+   16   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =        48     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =    ------     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =    ------     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,74 @@
+C251 COMPILER V5.60.0,  swj                                                                17/11/21  20:09:16  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE swj
+OBJECT MODULE PLACED IN .\Out_File\swj.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\CODE\swj.c XSMALL INTR2 WARNINGLEVEL(3) BROWSE INCDIR(..\..\Librari
+                    -es\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src) DEB
+                    -UG PRINT(.\Out_File\swj.lst) TABS(2) OBJECT(.\Out_File\swj.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          
+    3          
+    4          void usart1_putbuff (uint8_t *buff, uint32_t len)
+*** ERROR C25 IN LINE 4 OF ..\CODE\swj.c: syntax error near '*'
+    5          {
+*** WARNING C35 IN LINE 5 OF ..\CODE\swj.c: 'usart1_putbuff': uses old-style declarator
+    6   1          while(len--)
+    7   1          {
+    8   2               uart_putchar(UART_3,*buff);
+*** ERROR C67 IN LINE 8 OF ..\CODE\swj.c: 'buff': undefined identifier
+*** WARNING C96 IN LINE 8 OF ..\CODE\swj.c: 'uart_putchar': too few actual parameters
+    9   2               buff++;
+*** ERROR C83 IN LINE 9 OF ..\CODE\swj.c: '++': incompatible types
+*** ERROR C122 IN LINE 9 OF ..\CODE\swj.c: 'function': unknown size
+*** ERROR C100 IN LINE 9 OF ..\CODE\swj.c: '++': left operand must be l-value
+   10   2          }
+*** ERROR C83 IN LINE 6 OF ..\CODE\swj.c: '--': incompatible types
+*** ERROR C122 IN LINE 6 OF ..\CODE\swj.c: 'function': unknown size
+*** ERROR C100 IN LINE 6 OF ..\CODE\swj.c: '--': left operand must be l-value
+   11   1      }
+*** WARNING C47 IN LINE 4 OF ..\CODE\swj.c: 'uint8_t': unreferenced parameter
+   12          
+   13          void vcan_sendware(uint8_t *wareaddr, uint32_t waresize)
+*** ERROR C25 IN LINE 13 OF ..\CODE\swj.c: syntax error near '*'
+   14          { 
+*** WARNING C35 IN LINE 14 OF ..\CODE\swj.c: 'vcan_sendware': uses old-style declarator
+   15   1          uint8_t cmdf[2] = {0x03, 0xfc};
+*** ERROR C25 IN LINE 15 OF ..\CODE\swj.c: syntax error near 'cmdf'
+   16   1          uint8_t cmdr[2] = {0xfc, 0x03};
+*** ERROR C142 IN LINE 16 OF ..\CODE\swj.c: illegal initialization
+   17   1         
+   18   1          usart1_putbuff(cmdf,sizeof(cmdf));
+*** ERROR C76 IN LINE 18 OF ..\CODE\swj.c: formal parameter ignored
+*** ERROR C25 IN LINE 18 OF ..\CODE\swj.c: syntax error near 'sizeof'
+*** ERROR C42 IN LINE 18 OF ..\CODE\swj.c: 'usart1_putbuff': not in formal parameter list
+   19   1          usart1_putbuff(wareaddr,waresize);
+   20   1          usart1_putbuff(cmdr,sizeof(cmdr));
+   21   1      }
+   22   1      
+   23   1      float warebuf[5];
+   24   1      void VCAN()
+   25   1      {
+   26   1        warebuf[0]=Car_Angle;
+   27   1        warebuf[1]=GYRO_Real_Y;
+   28   1        warebuf[2]=ACC_Real_Z;
+   29   1        warebuf[3]=counter1_data;
+   30   1        warebuf[4]=counter1_data;
+   31   1        vcan_sendware((uint8_t *)warebuf,sizeof(warebuf));
+   32   1      }
+   33   1      
+   34   1      void CK()
+   35   1      {
+   36   1        printf("Angle %f",Angle);
+   37   1        printf("Gyro_Y %d",Gyro_Y);
+   38   1        printf("Acc_Z %d",Acc_Z);
+   39   1        printf("ad_value4 %f",ad_value4);
+C251 COMPILER V5.60.0,  swj                                                                17/11/21  20:09:16  PAGE 2   
+
+   40   1      }
+*** ERROR C7 IN LINE 40 OF ..\CODE\swj.c: compilation aborted
+
+C251 COMPILATION COMPLETE.  4 WARNING(S),  15 ERROR(S)

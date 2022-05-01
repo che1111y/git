@@ -1,0 +1,60 @@
+C251 COMPILER V5.60.0,  main                                                               30/04/22  21:52:41  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE main
+OBJECT MODULE PLACED IN .\Out_File\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\USER\src\main.c XSMALL INTR2 WARNINGLEVEL(3) BROWSE INCDIR(..\..\Li
+                    -braries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src
+                    -) DEBUG PRINT(.\Out_File\main.lst) OBJECT(.\Out_File\main.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          
+    3          
+    4          void main()
+    5          {
+    6   1              DisableGlobalIRQ();
+    7   1              board_init();
+    8   1              init();
+    9   1              EnableGlobalIRQ();
+   10   1          while(1)
+   11   1              {                                                                                                       
+             -                                                                                                                        
+             -                                                                                                                        
+             -                                                             
+   12   2              //bee = 0;
+   13   2              //menu();
+   14   2              display();
+   15   2              //NiMing(encoder_left, encoder_right, Right_Duty, Left_Duty, Target_Speed);
+   16   2              //ccd_up();
+   17   2              //VCAN();
+   18   2              //wx_key();
+   19   2          }
+   20   1      }
+   21          
+   22          
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =        17     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =    ------     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =    ------     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

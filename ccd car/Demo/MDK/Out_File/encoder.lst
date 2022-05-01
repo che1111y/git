@@ -1,0 +1,103 @@
+C251 COMPILER V5.60.0,  encoder                                                            30/04/22  21:52:42  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE encoder
+OBJECT MODULE PLACED IN .\Out_File\encoder.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\CODE\encoder.c XSMALL INTR2 WARNINGLEVEL(3) BROWSE INCDIR(..\..\Lib
+                    -raries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src)
+                    - DEBUG PRINT(.\Out_File\encoder.lst) OBJECT(.\Out_File\encoder.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          
+    3          
+    4          int16 dat_left[5],dat_right[5],encoder_left,encoder_right;
+    5          float en_suml=0,en_sumr=0; 
+    6          int en_datl[5],en_datr[5];
+    7          uint8 e,e_val=5;
+    8          
+    9          void encoder_init()
+   10          {
+   11   1              ctimer_count_init(CTIM0_P34);
+   12   1              ctimer_count_init(CTIM3_P04);
+   13   1      }
+   14          
+   15          void encoder_get()
+   16          {
+   17   1          int i ;
+   18   1                      if(DIR_LEFT == 1)
+   19   1                      {
+   20   2                  for(i=0;i<5;i++)
+   21   2                  {
+   22   3                      dat_left[i] = ctimer_count_read(CTIM0_P34);
+   23   3                  }
+   24   2                      }
+   25   1                      else
+   26   1                      {
+   27   2                  for(i=0;i<5;i++)
+   28   2                  {
+   29   3                      dat_left[i] = ctimer_count_read(CTIM0_P34) * -1;
+   30   3                  }
+   31   2                      }
+   32   1                      
+   33   1                      if(DIR_RIGHT == 1)
+   34   1                      {
+   35   2                  for(i=0;i<5;i++)
+   36   2                  {
+   37   3                      dat_right[i] = ctimer_count_read(CTIM3_P04) * -1;
+   38   3                  }
+   39   2                      }
+   40   1                      else
+   41   1                      {
+   42   2                  for(i=0;i<5;i++)
+   43   2                  {
+   44   3                      dat_right[i] = ctimer_count_read(CTIM3_P04);
+   45   3                  }
+   46   2                      }
+   47   1                      
+   48   1      //        en_suml = ctimer_count_read(CTIM0_P34);
+   49   1                      ctimer_count_clean(CTIM0_P34);
+   50   1                      ctimer_count_clean(CTIM3_P04);
+   51   1                      
+   52   1              for(e=0;e<e_val;e++)                                                                                                                    
+   53   1              {
+   54   2                  en_datl[e]=dat_left[e];
+   55   2              }
+   56   1              en_suml = en_datl[0]*0.05+en_datl[1]*0.1+en_datl[2]*0.15+en_datl[3]*0.3+en_datl[4]*0.4;
+   57   1              
+C251 COMPILER V5.60.0,  encoder                                                            30/04/22  21:52:42  PAGE 2   
+
+   58   1              for(e=0;e<e_val;e++)                                                                                                                    
+   59   1              {
+   60   2                  en_datr[e]=dat_right[e];
+   61   2              }
+   62   1              en_sumr = en_datr[0]*0.05+en_datr[1]*0.1+en_datr[2]*0.15+en_datr[3]*0.3+en_datr[4]*0.4;
+   63   1              
+   64   1                      encoder_left = en_suml;
+   65   1                      encoder_right = en_sumr;
+   66   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =       507     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =        54     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =        21     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

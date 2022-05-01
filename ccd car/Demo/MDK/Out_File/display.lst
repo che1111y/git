@@ -1,0 +1,289 @@
+C251 COMPILER V5.60.0,  display                                                            30/04/22  21:52:41  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE display
+OBJECT MODULE PLACED IN .\Out_File\display.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\CODE\display.c XSMALL INTR2 WARNINGLEVEL(3) BROWSE INCDIR(..\..\Lib
+                    -raries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src)
+                    - DEBUG PRINT(.\Out_File\display.lst) OBJECT(.\Out_File\display.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          int x , y , z , m , n , a , b , c , p , i , d ;                                //xÖ÷¼¶½çÃæÉÏÏÂ£¬yÖ÷´Î½çÃæ
+             -×ª»»£¬m´Î¼¶½çÃæÉÏÏÂ£¬z´Î¼¶½çÃæ×óÓÒ£¬n , a £¬b , c
+    3          int io_input_state1,io_input_state2,io_input_state3,io_input_state4,io_input_state5;
+    4          extern float ad_value1,ad_value2,ad_value3,ad_value4;
+    5          extern int cbh;
+    6          extern int16 counter1_data,counter2_data; 
+    7          extern int16 mpu3050_gyro_x,mpu3050_gyro_y,mpu3050_gyro_z;
+    8          
+    9          /*********************************³õÊ¼»¯***********************************/
+   10          void menu_init()
+   11          {
+   12   1            ips114_init();
+   13   1            ips114_clear(BLUE);
+   14   1      }
+   15          
+   16          /*=======================Ö÷½çÃæ¿ØÖÆ==========================*/
+   17          void menu0()
+   18          {       
+   19   1        if(y==0)
+   20   1        {
+   21   2          ips114_showstr(0, 0,"image");// Í¼ÏñÐÅÏ¢
+   22   2      
+   23   2          ips114_showstr(0, 1,"magnetic");//µç´Å
+   24   2       
+   25   2          ips114_showstr(0, 2,"motor"); //µç»úµ÷½Ú
+   26   2        
+   27   2          ips114_showstr(0, 3,"pid"); //PID
+   28   2         
+   29   2          ips114_showstr(0, 4,"start"); //¿ªÊ¼ÆðÅÜ
+   30   2        
+   31   2          ips114_showstr(75, x,"<-"); //Ñ¡ÖÐ
+   32   2             if(x>4)
+   33   2               x=0;
+   34   2        }
+   35   1            
+   36   1      }       
+   37          /*=======================Ö÷½çÃæ¿ØÖÆ==========================*/
+   38          
+   39          /*=======================ÉãÏñÍ·½çÃæ¿ØÖÆ==========================*///xÖ÷¼¶½çÃæÉÏÏÂ£¬yÖ÷´Î½çÃæ×ª»»£¬m´Î¼¶½
+             -çÃæÉÏÏÂ£¬z´Î¼¶½çÃæ×óÓÒ
+   40          void menu1()
+   41          {       
+   42   1      
+   43   1         if(x==0 && y==1)
+   44   1         {
+   45   2            ips114_showstr(0, 0,"image");// Í¼ÏñÐÅÏ¢
+   46   2            ips114_showstr(0, 7,"back"); //·µ»Ø
+   47   2             if(m==1)
+   48   2            ips114_showstr(75, 7,"<-"); //Ñ¡ÖÐ
+   49   2            if(m>1)
+   50   2              m=0;
+   51   2         }
+   52   1          
+   53   1         if(x==0 && y==1 && m==1)
+   54   1         {
+   55   2            if(io_input_state5==0)
+C251 COMPILER V5.60.0,  display                                                            30/04/22  21:52:41  PAGE 2   
+
+   56   2            {
+   57   3               ips114_clear(BLUE);
+   58   3               y=0;
+   59   3               m=0;
+   60   3            }
+   61   2          }
+   62   1      }       
+   63          /*=======================ÉãÏñÍ·½çÃæ¿ØÖÆ==========================*/
+   64          
+   65          
+   66          
+   67          /*=======================µç´Å½çÃæ¿ØÖÆ==========================*///xÖ÷¼¶½çÃæÉÏÏÂ£¬yÖ÷´Î½çÃæ×ª»»£¬m´Î¼¶½çÃ
+             -æÉÏÏÂ£¬z´Î¼¶½çÃæ×óÓÒ
+   68          void menu2()
+   69          {       
+   70   1         if(x==1 && y==1)
+   71   1         {
+   72   2            ips114_showstr(0, 0, "ADC_1 CH0");
+   73   2            ips114_showfloat(120, 0, ad_value1,3,3);
+   74   2            ips114_showstr(0, 1, "ADC_1 CH2");
+   75   2            ips114_showfloat(120, 1, ad_value2,3,3);
+   76   2            ips114_showstr(0, 2, "ADC_1 CH3");
+   77   2            ips114_showfloat(120, 2, ad_value3,3,3);
+   78   2            ips114_showstr(0, 3, "ADC_1 CH5");
+   79   2            ips114_showfloat(120, 3, ad_value4,3,3);
+   80   2            ips114_showstr(0, 4, "cbh");
+   81   2            ips114_showint16(120, 4, cbh);
+   82   2            ips114_showstr(0, 7,"back"); //·µ»Ø
+   83   2            if(m==1)
+   84   2            ips114_showstr(75, 7,"<-"); //Ñ¡ÖÐ
+   85   2            if(m>1)
+   86   2               m=0;
+   87   2         }
+   88   1          
+   89   1         if(x==1 && y==1 && m==1)
+   90   1         {
+   91   2            if(io_input_state5==0)
+   92   2            {
+   93   3               ips114_clear(BLUE);
+   94   3               y=0;
+   95   3               m=0;
+   96   3            }
+   97   2         }
+   98   1      }  
+   99          /*=======================µç´Å½çÃæ¿ØÖÆ==========================*/
+  100          
+  101          
+  102          /*=======================µç»ú½çÃæ¿ØÖÆ==========================*///xÖ÷¼¶½çÃæÉÏÏÂ£¬yÖ÷´Î½çÃæ×ª»»£¬m´Î¼¶½çÃ
+             -æÉÏÏÂ£¬z´Î¼¶½çÃæ×óÓÒ
+  103          void menu3()
+  104          {       
+  105   1      
+  106   1         if(x==2 && y==1)
+  107   1         {
+  108   2            ips114_showstr(0, 1,"encoder_left");
+  109   2            ips114_showstr(0, 3,"encoder_right");
+  110   2            ips114_showstr(0, 5,"Target_Speed");
+  111   2            ips114_showstr(0, 7,"back"); //·µ»Ø
+  112   2            if(m==2)
+  113   2            ips114_showstr(125, 7,"<-"); //Ñ¡ÖÐ
+  114   2             if(m>2)
+  115   2               m=0;
+  116   2         }
+  117   1          
+  118   1      
+  119   1         if(x==2 && y==1 && m==2)
+C251 COMPILER V5.60.0,  display                                                            30/04/22  21:52:41  PAGE 3   
+
+  120   1         {
+  121   2            if(io_input_state5==0)
+  122   2            {
+  123   3               ips114_clear(BLUE);
+  124   3               y=0;
+  125   3               m=0;
+  126   3            }
+  127   2         }
+  128   1      }  
+  129          
+  130          /*=======================µç»ú½çÃæ¿ØÖÆ==========================*/
+  131          
+  132          
+  133          /*=======================PID½çÃæ¿ØÖÆ==========================*///xÖ÷¼¶½çÃæÉÏÏÂ£¬yÖ÷´Î½çÃæ×ª»»£¬m´Î¼¶½çÃæ
+             -ÉÏÏÂ£¬z´Î¼¶½çÃæ×óÓÒ
+  134          void menu4()
+  135          {       
+  136   1         if(x==3 && y==1)
+  137   1         {
+  138   2            ips114_showstr(0, 1,"P");
+  139   2            ips114_showuint16(50, 1,p);
+  140   2            ips114_showstr(0, 3,"I");
+  141   2            ips114_showuint16(50, 3,i);
+  142   2            ips114_showstr(0, 5,"D");
+  143   2            ips114_showuint16(50, 5,d);
+  144   2            ips114_showstr(0, 7,"back"); //·µ»Ø
+  145   2            if(m==3)
+  146   2            ips114_showstr(100, 7,"<-"); //Ñ¡ÖÐ
+  147   2             if(m>3)
+  148   2               m=0;
+  149   2         }
+  150   1          
+  151   1               if(x==3 && y==1 && m==3)
+  152   1               {
+  153   2                 if(io_input_state5==0)
+  154   2                 {
+  155   3                   ips114_clear(BLUE);
+  156   3                   y=0;
+  157   3                   m=0;
+  158   3                 }
+  159   2               }
+  160   1      }   
+  161          /*=======================PID½çÃæ¿ØÖÆ==========================*/
+  162          
+  163          
+  164          /*=====================start=======================*/
+  165          void menu5()
+  166          {       
+  167   1        if(x==4 && y==1)
+  168   1        {
+  169   2            ips114_showstr(115, 4,"1");
+  170   2            delay_ms(1000);
+  171   2            ips114_showstr(115, 4,"2");
+  172   2            delay_ms(1000);
+  173   2            ips114_showstr(115, 4,"3");
+  174   2            delay_ms(1000);
+  175   2            ips114_showstr(100, 4,"start!!!!!");
+  176   2            delay_ms(1000);
+  177   2            ips114_clear(BLUE);
+  178   2            y=0;
+  179   2            m=0;
+  180   2          
+  181   2        }
+  182   1      }   
+  183          /*=====================start=======================*/
+  184          
+C251 COMPILER V5.60.0,  display                                                            30/04/22  21:52:41  PAGE 4   
+
+  185          /*=====================²Ëµ¥Ö÷³ÌÐò=======================*/
+  186          void menu()
+  187          {
+  188   1           wx_key();
+  189   1           menu0();
+  190   1           menu1();
+  191   1           menu2();
+  192   1           menu3();
+  193   1           menu4();
+  194   1           menu5();
+  195   1      }
+  196          
+  197          /*=====================²Ëµ¥Ö÷³ÌÐò=======================*/
+  198          int dat;
+  199          void display()
+  200          {
+  201   1          dat = DIR_LEFT;
+  202   1          ips114_showfloat(0, 0, ccd_cbh11,3,3);
+  203   1          ips114_showfloat(0, 1, ccd_cbh12,3,3);
+  204   1          ips114_showfloat(0, 2, ccd_cbh21,3,3);
+  205   1          ips114_showfloat(0, 3, ccd_cbh22,3,3);
+  206   1              
+  207   1      //        ips114_showfloat(0, 0, black_cbh11,3,3);
+  208   1      //    ips114_showfloat(0, 1, black_cbh12,3,3);
+  209   1      //    ips114_showfloat(0, 2, black_cbh21,3,3);
+  210   1      //    ips114_showfloat(0, 3, black_cbh22,3,3);
+  211   1          
+  212   1      //    ips114_showint16(100, 0, ad_value1);
+  213   1      //    ips114_showint16(100, 1, ad_value2);
+  214   1      //    ips114_showint16(100, 2, ad_value3);
+  215   1      //    ips114_showint16(100, 3, ad_value4);
+  216   1          
+  217   1          ips114_showint16(100, 0, Rboundary_data);
+  218   1          ips114_showint16(100, 1, Lboundary_data);
+  219   1              ips114_showint16(100, 2, Rboundary_data2);
+  220   1          ips114_showint16(100, 3, Lboundary_data2);
+  221   1              
+  222   1      //        ips114_showint16(100, 0, Rboundary_black);
+  223   1      //    ips114_showint16(100, 1, Lboundary_black);
+  224   1      //              ips114_showint16(100, 2, Rboundary_black2);
+  225   1      //    ips114_showint16(100, 3, Lboundary_black2);
+  226   1                      
+  227   1          ips114_showint16(100, 4, mid);
+  228   1          ips114_showint16(100, 5, df);
+  229   1                      ips114_showint16(100, 6, road_width1);
+  230   1      //    ips114_showint16(100, 7, road_width2);
+  231   1                      ips114_showint16(100, 7, Broad_width2);
+  232   1          
+  233   1      //    ips114_showint16(0, 4, cbh);
+  234   1          ips114_showint16(0, 5, Outside_black1);
+  235   1          ips114_showint16(0, 6, Outside_black2);
+  236   1          
+  237   1      //      ips114_showfloat(0, 1, Speed_KI,3,3);
+  238   1      //      ips114_showfloat(0, 2, Speed_KP,3,3);
+  239   1          
+  240   1      }
+  241          
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =      1433     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+C251 COMPILER V5.60.0,  display                                                            30/04/22  21:52:41  PAGE 5   
+
+  xdata-const size     =    ------     ------
+  edata size           =        34     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =       146     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

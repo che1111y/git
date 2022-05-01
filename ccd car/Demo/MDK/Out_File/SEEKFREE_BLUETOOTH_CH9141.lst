@@ -1,0 +1,399 @@
+C251 COMPILER V5.60.0,  SEEKFREE_BLUETOOTH_CH9141                                          30/04/22  21:52:40  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_BLUETOOTH_CH9141
+OBJECT MODULE PLACED IN .\Out_File\SEEKFREE_BLUETOOTH_CH9141.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_peripheral\SEEKFREE_BLUETOOTH_CH9141.c XSMALL
+                    - INTR2 WARNINGLEVEL(3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfr
+                    -ee_peripheral;..\CODE;..\USER\inc;..\USER\src) DEBUG PRINT(.\Out_File\SEEKFREE_BLUETOOTH_CH9141.lst) OBJECT(.\Out_File\S
+                    -EEKFREE_BLUETOOTH_CH9141.obj) 
+
+stmt  level    source
+
+    1          /********************************************************************************************************
+             -*************
+    2           * COPYRIGHT NOTICE
+    3           * Copyright (c) 2021,Öð·É¿Æ¼¼
+    4           * All rights reserved.
+    5           * ¼¼ÊõÌÖÂÛQQÈº£ºÒ»Èº£º179029047(ÒÑÂú)  ¶þÈº£º244861897
+    6           *
+    7           * ÒÔÏÂËùÓÐÄÚÈÝ°æÈ¨¾ùÊôÖð·É¿Æ¼¼ËùÓÐ£¬Î´¾­ÔÊÐí²»µÃÓÃÓÚÉÌÒµÓÃÍ¾£¬
+    8           * »¶Ó­¸÷Î»Ê¹ÓÃ²¢´«²¥±¾³ÌÐò£¬ÐÞ¸ÄÄÚÈÝÊ±±ØÐë±£ÁôÖð·É¿Æ¼¼µÄ°æÈ¨ÉùÃ÷¡£
+    9           *
+   10           * @file                Öð·É¿Æ¼¼À¶ÑÀ×ª´®¿ÚÄ£¿é
+   11           * @company                     ³É¶¼Öð·É¿Æ¼¼ÓÐÏÞ¹«Ë¾
+   12           * @author              Öð·É¿Æ¼¼(QQ3184284598)
+   13           * @version             ²é¿´docÄÚversionÎÄ¼þ °æ±¾ËµÃ÷
+   14           * @Software            IAR 8.3 or MDK 5.33
+   15           * @Taobao              https://seekfree.taobao.com/
+   16           * @date                2021-08-27
+   17           * @note                
+   18                                                  ½ÓÏß¶¨Òå£º
+   19                                                  ------------------------------------ 
+   20                                                      À¶ÑÀ×ª´®¿Ú      µ¥Æ¬»ú                        
+   21                                                  RX              ²é¿´SEEKFREE_BLUETOOTH_CH9141.hÎÄ¼þÖÐµÄBLUETOOTH_CH9141_UART_TXºê¶¨Òå
+   22                                                  TX              ²é¿´SEEKFREE_BLUETOOTH_CH9141.hÎÄ¼þÖÐµÄBLUETOOTH_CH9141_UART_RXºê¶¨Òå
+   23                                                  RTS             ²é¿´SEEKFREE_BLUETOOTH_CH9141.hÎÄ¼þÖÐµÄBLUETOOTH_CH9141_RTS_PINºê¶¨Òå
+   24                                  CTS             Ðü¿Õ
+   25                                                  CMD             Ðü¿Õ»òÕßÉÏÀ­
+   26                                                  ------------------------------------ 
+   27           ********************************************************************************************************
+             -************/
+   28          #include "stdio.h"
+   29          #include "string.h"
+   30          #include "board.h"
+   31          #include "zf_gpio.h"
+   32          #include "zf_uart.h"
+   33          #include "zf_nvic.h"
+   34          #include "zf_delay.h"
+   35          #include <string.h>
+   36          
+   37          #include "SEEKFREE_BLUETOOTH_CH9141.h"
+   38          
+   39          
+   40          uint8 uart_data;
+   41          uint8 uart_flag;
+   42          
+   43          vuint8 at_mode = 0;         //0:À¶ÑÀÍ¸´«Ä£Ê½ 1:ATÄ£Ê½ 2:Ä£¿é¸´Î»ÖÐ
+   44          vuint8 at_mode_num;         //atÄ£Ê½Ê±ÓÃÓÚÖ¸Ê¾Êý¾Ý½ÓÊÕµÄÊýÁ¿
+   45          vuint8 at_mode_data[30];    //½ÓÊÕatÃüÁîµÄ»º´æ
+   46          vuint8 at_mode_cmd_flag;    //OKÓ¦´ðÃüÁî½ÓÊÕ³É¹¦µÄ±êÖ¾Î»
+   47          
+   48          uint8 mac_address[17];      //±¾»úmacµØÖ·
+   49          
+   50          
+   51          uint8 bluetooth_ch9141_rx_buffer;
+   52          
+   53          
+   54          static  fifo_struct     bluetooth_ch9141_fifo;
+C251 COMPILER V5.60.0,  SEEKFREE_BLUETOOTH_CH9141                                          30/04/22  21:52:40  PAGE 2   
+
+   55          static  uint8           bluetooth_ch9141_buffer[BLUETOOTH_CH9141_BUFFER_SIZE];  // Êý¾Ý´æ·ÅÊý×é
+   56          
+   57          static          uint8   bluetooth_ch9141_data;
+   58          
+   59          //-------------------------------------------------------------------------------------------------------
+             -------------
+   60          // @brief       FIFO ³õÊ¼»¯ ¹ÒÔØ¶ÔÓ¦»º³åÇø
+   61          // @param       *fifo           FIFO ¶ÔÏóÖ¸Õë
+   62          // @param       *buffer_addr    Òª¹ÒÔØµÄ»º³åÇø
+   63          // @param       size            »º³åÇø´óÐ¡
+   64          // @return      fifo_state_enum ²Ù×÷×´Ì¬
+   65          // Sample usage:
+   66          //-------------------------------------------------------------------------------------------------------
+             -------------
+   67          fifo_state_enum fifo_init (fifo_struct *fifo, uint8 *buffer_addr, uint32 size)
+   68          {
+   69   1          if(buffer_addr == NULL)
+   70   1              return FIFO_BUFFER_NULL;
+   71   1          fifo->buffer    = buffer_addr;
+   72   1          fifo->head      = 0;
+   73   1          fifo->end       = 0;
+   74   1          fifo->size      = size;
+   75   1          fifo->max       = size;
+   76   1          return FIFO_SUCCESS;
+   77   1      }
+   78          
+   79          //-------------------------------------------------------------------------------------------------------
+             -------------
+   80          // @brief       FIFO Í·Ö¸ÕëÎ»ÒÆ
+   81          // @param       *fifo           FIFO ¶ÔÏóÖ¸Õë
+   82          // @param       offset          Æ«ÒÆÁ¿
+   83          // @return      void
+   84          // Sample usage:
+   85          //-------------------------------------------------------------------------------------------------------
+             -------------
+   86          void fifo_head_offset (fifo_struct *fifo, uint32 offset)
+   87          {
+   88   1          fifo->head += offset;
+   89   1      
+   90   1          while(fifo->max <= fifo->head)                                              // Èç¹û·¶Î§³¬¹ýÔò¼õ»º³åÇø
+             -´óÐ¡ Ö±µ½Ð¡ÓÚ×î´ó»º³åÇø´óÐ¡
+   91   1          {
+   92   2              fifo->head -= fifo->max;
+   93   2          }
+   94   1      }
+   95          
+   96          //-------------------------------------------------------------------------------------------------------
+             -------------
+   97          // @brief       FIFO Î²Ö¸ÕëÎ»ÒÆ
+   98          // @param       *fifo           FIFO ¶ÔÏóÖ¸Õë
+   99          // @param       offset          Æ«ÒÆÁ¿
+  100          // @return      void
+  101          // Sample usage:
+  102          //-------------------------------------------------------------------------------------------------------
+             -------------
+  103          void fifo_end_offset (fifo_struct *fifo, uint32 offset)
+  104          {
+  105   1          fifo->end += offset;
+  106   1      
+  107   1          while(fifo->max <= fifo->end)                                               // Èç¹û·¶Î§³¬¹ýÔò¼õ»º³åÇø
+             -´óÐ¡ Ö±µ½Ð¡ÓÚ×î´ó»º³åÇø´óÐ¡
+  108   1          {
+  109   2              fifo->end -= fifo->max;
+  110   2          }
+  111   1      }
+  112          
+C251 COMPILER V5.60.0,  SEEKFREE_BLUETOOTH_CH9141                                          30/04/22  21:52:40  PAGE 3   
+
+  113          //-------------------------------------------------------------------------------------------------------
+             -------------
+  114          // @brief       FIFO ÖØÖÃ»º³åÆ÷
+  115          // @param       *fifo           FIFO ¶ÔÏóÖ¸Õë
+  116          // @return      void
+  117          // Sample usage:
+  118          //-------------------------------------------------------------------------------------------------------
+             -------------
+  119          void fifo_clear (fifo_struct *fifo)
+  120          {
+  121   1          fifo->head      = 0;
+  122   1          fifo->end       = 0;
+  123   1          fifo->size      = fifo->max;
+  124   1      }
+  125          
+  126          //-------------------------------------------------------------------------------------------------------
+             -------------
+  127          // @brief       FIFO ²éÑ¯µ±Ç°Êý¾Ý¸öÊý
+  128          // @param       *fifo           FIFO ¶ÔÏóÖ¸Õë
+  129          // @return      void
+  130          // Sample usage:
+  131          //-------------------------------------------------------------------------------------------------------
+             -------------
+  132          uint32 fifo_used (fifo_struct *fifo)
+  133          {
+  134   1          return (fifo->max - fifo->size);
+  135   1      }
+  136          
+  137          //-------------------------------------------------------------------------------------------------------
+             -------------
+  138          // @brief       Ïò FIFO ÖÐÐ´ÈëÊý¾Ý
+  139          // @param       *fifo           FIFO ¶ÔÏóÖ¸Õë
+  140          // @param       *dat            Êý¾ÝÀ´Ô´»º³åÇøÖ¸Õë
+  141          // @param       length          ÐèÒªÐ´ÈëµÄÊý¾Ý³¤¶È
+  142          // @return      fifo_state_enum ²Ù×÷×´Ì¬
+  143          // Sample usage:                if(fifo_write_buffer(&fifo,data,32)!=FIFO_SUCCESS) while(1);
+  144          //-------------------------------------------------------------------------------------------------------
+             -------------
+  145          fifo_state_enum fifo_write_buffer (fifo_struct *fifo, uint8 *dat, uint32 length)
+  146          {
+  147   1          uint32 temp_length;
+  148   1      
+  149   1          if(length < fifo->size)                                                     // Ê£Óà¿Õ¼ä×ã¹»×°ÏÂ±¾´ÎÊý
+             -¾Ý
+  150   1          {
+  151   2              DisableGlobalIRQ();
+  152   2              temp_length = fifo->max - fifo->head;                                   // ¼ÆËãÍ·Ö¸Õë¾àÀë»º³åÇøÎ²
+             -»¹ÓÐ¶àÉÙ¿Õ¼ä
+  153   2      
+  154   2              if(length > temp_length)                                                // ¾àÀë»º³åÇøÎ²³¤¶È²»×ãÐ´
+             -ÈëÊý¾Ý »·ÐÎ»º³åÇø·Ö¶Î²Ù×÷
+  155   2              {
+  156   3                  memcpy(&fifo->buffer[fifo->head], dat, temp_length);                // ¿½±´µÚÒ»¶ÎÊý¾Ý
+*** WARNING C188 IN LINE 156 OF ..\..\Libraries\seekfree_peripheral\SEEKFREE_BLUETOOTH_CH9141.c: 'parameter 3': value tr
+             -uncated
+  157   3                  fifo_head_offset(fifo, temp_length);                                // Í·Ö¸ÕëÆ«ÒÆ
+  158   3                  dat += temp_length;                                                 // ¶ÁÈ¡»º³åÆ«ÒÆ
+  159   3                  memcpy(&fifo->buffer[fifo->head], dat, length - temp_length);       // ¿½±´µÚÒ»¶ÎÊý¾Ý
+  160   3                  fifo_head_offset(fifo, length - temp_length);                       // Í·Ö¸ÕëÆ«ÒÆ
+  161   3              }
+  162   2              else
+  163   2              {
+  164   3                  memcpy(&fifo->buffer[fifo->head], dat, length);                     // Ò»´ÎÍêÕûÐ´Èë
+*** WARNING C188 IN LINE 164 OF ..\..\Libraries\seekfree_peripheral\SEEKFREE_BLUETOOTH_CH9141.c: 'parameter 3': value tr
+             -uncated
+  165   3                  fifo_head_offset(fifo, length);                                     // Í·Ö¸ÕëÆ«ÒÆ
+C251 COMPILER V5.60.0,  SEEKFREE_BLUETOOTH_CH9141                                          30/04/22  21:52:40  PAGE 4   
+
+  166   3              }
+  167   2      
+  168   2              fifo->size -= length;                                                   // »º³åÇøÊ£Óà³¤¶È¼õÐ¡
+  169   2              DisableGlobalIRQ();
+  170   2          }
+  171   1          else
+  172   1          {
+  173   2              return FIFO_SPACE_NO_ENOUGH;
+  174   2          }
+  175   1      
+  176   1          return FIFO_SUCCESS;
+  177   1      }
+  178          
+  179          //-------------------------------------------------------------------------------------------------------
+             -------------
+  180          // @brief       ´Ó FIFO ¶ÁÈ¡Êý¾Ý
+  181          // @param       *fifo           FIFO ¶ÔÏóÖ¸Õë
+  182          // @param       *dat            Ä¿±ê»º³åÇøÖ¸Õë
+  183          // @param       *length         ¶ÁÈ¡µÄÊý¾Ý³¤¶È Èç¹ûÃ»ÓÐÕâÃ´¶àÊý¾ÝÕâÀï»á±»ÐÞ¸Ä
+  184          // @param       flag            ÊÇ·ñ±ä¸ü FIFO ×´Ì¬ ¿ÉÑ¡ÔñÊÇ·ñÇå¿Õ¶ÁÈ¡µÄÊý¾Ý
+  185          // @return      fifo_state_enum ²Ù×÷×´Ì¬
+  186          // Sample usage:                if(fifo_read_buffer(&fifo,data,32,FIFO_READ_ONLY)!=FIFO_SUCCESS) while(1)
+             -;
+  187          //-------------------------------------------------------------------------------------------------------
+             -------------
+  188          fifo_state_enum fifo_read_buffer (fifo_struct *fifo, uint8 *dat, uint32 *length, fifo_operation_enum flag
+             -)
+  189          {
+  190   1          uint8 data_check = 0;
+  191   1          uint32 temp_length;
+  192   1      
+  193   1          if(*length > fifo_used(fifo))
+  194   1          {
+  195   2              *length = (fifo->max - fifo->size);                                     // ¾ÀÕý¶ÁÈ¡µÄ³¤¶È
+  196   2              data_check = 1;                                                         // ±êÖ¾Êý¾Ý²»¹»
+  197   2          }
+  198   1      
+  199   1          temp_length = fifo->max - fifo->end;                                        // ¼ÆËãÎ²Ö¸Õë¾àÀë»º³åÇøÎ²
+             -»¹ÓÐ¶àÉÙ¿Õ¼ä
+  200   1          if(*length <= temp_length)                                                  // ×ã¹»Ò»´ÎÐÔ¶ÁÈ¡Íê±Ï
+  201   1          {
+  202   2              if(NULL != dat)    memcpy(dat, &fifo->buffer[fifo->end], *length);      // Ò»´ÎÐÔ¶ÁÈ¡Íê±Ï
+*** WARNING C188 IN LINE 202 OF ..\..\Libraries\seekfree_peripheral\SEEKFREE_BLUETOOTH_CH9141.c: 'parameter 3': value tr
+             -uncated
+  203   2          }
+  204   1          else
+  205   1          {
+  206   2              if(NULL != dat)
+  207   2              {
+  208   3                  memcpy(dat, &fifo->buffer[fifo->end], temp_length);                 // ¿½±´µÚÒ»¶ÎÊý¾Ý
+*** WARNING C188 IN LINE 208 OF ..\..\Libraries\seekfree_peripheral\SEEKFREE_BLUETOOTH_CH9141.c: 'parameter 3': value tr
+             -uncated
+  209   3                  memcpy(&dat[temp_length], &fifo->buffer[0], *length - temp_length); // ¿½±´µÚ¶þ¶ÎÊý¾Ý
+  210   3              }
+  211   2          }
+  212   1      
+  213   1          if(flag == FIFO_READ_AND_CLEAN)                                             // Èç¹ûÑ¡Ôñ¶ÁÈ¡²¢¸ü¸Ä FIF
+             -O ×´Ì¬
+  214   1          {
+  215   2              DisableGlobalIRQ();
+  216   2              fifo_end_offset(fifo, *length);                                         // ÒÆ¶¯ FIFO Í·Ö¸Õë
+  217   2              fifo->size += *length;
+  218   2              EnableGlobalIRQ();
+  219   2          }
+  220   1      
+  221   1          return (data_check?FIFO_DATA_NO_ENOUGH:FIFO_SUCCESS);
+C251 COMPILER V5.60.0,  SEEKFREE_BLUETOOTH_CH9141                                          30/04/22  21:52:40  PAGE 5   
+
+  222   1      }
+  223          
+  224          //-------------------------------------------------------------------------------------------------------
+             -------------
+  225          //  @brief      À¶ÑÀ×ª´®¿ÚÄ£¿é ´®¿ÚÖÐ¶Ï»Øµ÷º¯Êý
+  226          //  @param      void
+  227          //  @return     void
+  228          //  Sample usage:
+  229          //  @note       ¸Ãº¯ÊýÔÚISRÎÄ¼þ ´®¿ÚÖÐ¶Ï³ÌÐò±»µ÷ÓÃ
+  230          //-------------------------------------------------------------------------------------------------------
+             -------------
+  231          void bluetooth_ch9141_uart_callback (void)
+  232          {
+  233   1          // ¶ÁÈ¡ÎÞÏß´®¿ÚµÄÊý¾Ý ²¢ÇÒÖÃÎ»½ÓÊÕ±êÖ¾
+  234   1          bluetooth_ch9141_data = BLUETOOTH_CH9141_DATA_BUF;
+  235   1          fifo_write_buffer(&bluetooth_ch9141_fifo, &bluetooth_ch9141_data, 1);       // ´æÈë FIFO
+  236   1      }
+  237          
+  238          //-------------------------------------------------------------------------------------------------------
+             -------------
+  239          //  @brief      À¶ÑÀ×ª´®¿ÚÄ£¿é³õÊ¼»¯
+  240          //  @param      mode            À¶ÑÀÄ£Ê½ MASTER_MODE(Ö÷»ú)»òÕßSLAVE_MODE(´Ó»ú)
+  241          // @return      uint8           ³õÊ¼»¯×´Ì¬ 0-³É¹¦ 1-Ê§°Ü
+  242          //  Sample usage:
+  243          //-------------------------------------------------------------------------------------------------------
+             -------------
+  244          uint8 bluetooth_ch9141_init (void)
+  245          {
+  246   1          wireless_type = WIRELESS_CH9141;
+  247   1          // ±¾º¯ÊýÊ¹ÓÃµÄ²¨ÌØÂÊÎª115200 ÎªÀ¶ÑÀ×ª´®¿ÚÄ£¿éµÄÄ¬ÈÏ²¨ÌØÂÊ ÈçÐèÆäËû²¨ÌØÂÊÇëÊ¹ÓÃÉÏÎ»»úÐÞ¸ÄÄ£¿é²ÎÊý
+  248   1          fifo_init(&bluetooth_ch9141_fifo, bluetooth_ch9141_buffer, BLUETOOTH_CH9141_BUFFER_SIZE);
+  249   1          uart_init(BLUETOOTH_CH9141_INDEX, BLUETOOTH_CH9141_TX_PIN, BLUETOOTH_CH9141_RX_PIN, BLUETOOTH_CH9141_
+             -BUAD_RATE, BLUETOOTH_CH9141_TIMER);
+  250   1          return 0;
+  251   1      }
+  252          
+  253          
+  254          
+  255          //-------------------------------------------------------------------------------------------------------
+             -------------
+  256          //  @brief      ÎÞÏß×ª´®¿ÚÄ£¿é ·¢ËÍº¯Êý
+  257          //  @param      buff            ÐèÒª·¢ËÍµÄÊý¾ÝµØÖ·
+  258          //  @param      len             ·¢ËÍ³¤¶È
+  259          //  @return     uint32          Ê£ÓàÎ´·¢ËÍµÄ×Ö½ÚÊý
+  260          //  Sample usage:
+  261          //-------------------------------------------------------------------------------------------------------
+             -------------
+  262          uint32 bluetooth_ch9141_send_buff (uint8 *buff, uint32 len)
+  263          {
+  264   1          uint16 time_count = 0;
+  265   1          while(len > 30)
+  266   1          {
+  267   2              time_count = 0;
+  268   2              while(BLUETOOTH_CH9141_RTS_PIN && time_count++ < BLUETOOTH_CH9141_TIMEOUT_COUNT)  // Èç¹ûRTSÎªµÍµ
+             -çÆ½£¬Ôò¼ÌÐø·¢ËÍÊý¾Ý
+  269   2                  delay_ms(1);
+  270   2              if(time_count >= BLUETOOTH_CH9141_TIMEOUT_COUNT)
+  271   2                  return len;                                                         // Ä£¿éÃ¦,Èç¹ûÔÊÐíµ±Ç°³ÌÐ
+             -òÊ¹ÓÃwhileµÈ´ý Ôò¿ÉÒÔÊ¹ÓÃºóÃæ×¢ÊÍµÄwhileµÈ´ýÓï¾äÌæ»»±¾ifÓï¾ä
+  272   2              uart_putbuff(BLUETOOTH_CH9141_INDEX, buff, 30);
+  273   2      
+  274   2              buff += 30;                                                             // µØÖ·Æ«ÒÆ
+  275   2              len -= 30;                                                              // ÊýÁ¿
+  276   2          }
+  277   1      
+  278   1          time_count = 0;
+C251 COMPILER V5.60.0,  SEEKFREE_BLUETOOTH_CH9141                                          30/04/22  21:52:40  PAGE 6   
+
+  279   1          while(BLUETOOTH_CH9141_RTS_PIN && time_count++ < BLUETOOTH_CH9141_TIMEOUT_COUNT)      // Èç¹ûRTSÎªµÍµ
+             -çÆ½£¬Ôò¼ÌÐø·¢ËÍÊý¾Ý
+  280   1              delay_ms(1);
+  281   1          if(time_count >= BLUETOOTH_CH9141_TIMEOUT_COUNT)
+  282   1              return len;                                                             // Ä£¿éÃ¦,Èç¹ûÔÊÐíµ±Ç°³ÌÐ
+             -òÊ¹ÓÃwhileµÈ´ý Ôò¿ÉÒÔÊ¹ÓÃºóÃæ×¢ÊÍµÄwhileµÈ´ýÓï¾äÌæ»»±¾ifÓï¾ä
+  283   1          uart_putbuff(BLUETOOTH_CH9141_INDEX, buff, len);                            // ·¢ËÍ×îºóµÄÊý¾Ý
+*** WARNING C188 IN LINE 283 OF ..\..\Libraries\seekfree_peripheral\SEEKFREE_BLUETOOTH_CH9141.c: 'parameter 3': value tr
+             -uncated
+  284   1      
+  285   1          return 0;
+  286   1      }
+  287          
+  288          //-------------------------------------------------------------------------------------------------------
+             -------------
+  289          //  @brief      ÎÞÏß×ª´®¿ÚÄ£¿é ¶ÁÈ¡º¯Êý
+  290          //  @param      buff            ´æ´¢µÄÊý¾ÝµØÖ·
+  291          //  @param      len             ³¤¶È
+  292          //  @return     uint32          Êµ¼Ê¶ÁÈ¡×Ö½ÚÊý
+  293          //  Sample usage:
+  294          //-------------------------------------------------------------------------------------------------------
+             -------------
+  295          uint32 bluetooth_ch9141_read_buff (uint8 *buff, uint32 len)
+  296          {
+  297   1          uint32 data_len = len;
+  298   1          fifo_read_buffer(&bluetooth_ch9141_fifo, buff, &data_len, FIFO_READ_AND_CLEAN);
+  299   1          return data_len;
+  300   1      }
+  301          
+  302          
+  303          
+  304          
+  305          
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =      1066     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =       138         41
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =         5     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  5 WARNING(S),  0 ERROR(S)
