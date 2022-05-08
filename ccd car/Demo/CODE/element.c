@@ -107,7 +107,7 @@ void cirque()
 int sz_flag,flag_0;
 void ccd_sz()
 {
-//	int i;
+	int i;
 	
 	for(i=0;i<128;i++)
      {
@@ -124,6 +124,7 @@ void ccd_sz()
 		&&Lboundary_data2>40&&Rboundary_data2<80
 		&&flag_0 == 1)
 		{
+            bee = 0;
 			sz_flag =1 ;
 		}
 		
@@ -134,6 +135,7 @@ void ccd_sz()
 //			&&Lboundary_data2>35&&Rboundary_data2<105)
 		if(road_width1<70&&road_width2<40)
 		{
+            bee = 1;
 			sz_flag = 0;
 			flag_0 = 0;
 		}
@@ -143,8 +145,8 @@ void ccd_sz()
 int sc_flag = 0;
 void ccd_sc()
 {
-	if(Lboundary_data<20&&Rboundary_data>103&&
-        Broad_width2>20
+	if(Broad_width2>20
+//        &&Lboundary_data<20&&Rboundary_data>103
 		&&sc_flag == 0
         &&Outside_black1>20&&Outside_black2<107)
     //中间黑30-90//如果黑道宽度大于20
@@ -175,7 +177,7 @@ void ccd_sc()
 	}
 	if(sc_flag == 3)
 	{
-		Steer_PWMoutput = 635;
+		Steer_PWMoutput = 765;
 		if(road_width1<70&&road_width2<40)
 		{
 			bee = 1;
@@ -192,7 +194,7 @@ void ccd_sc()
 	}
 	if(sc_flag == 5)
 	{
-		Steer_PWMoutput = 765;
+		Steer_PWMoutput = 635;
 //    if(Lboundary_data>35&&Rboundary_data<105
 //			&&Lboundary_data2>35&&Rboundary_data2<105)
 		if(road_width1<70&&road_width2<40)
@@ -209,7 +211,7 @@ void ccd_sc()
 		 bee = 0;
 		 sc_flag = 7;
 	}
-		if(sc_flag == 7)
+    if(sc_flag == 7)
 	{
 		Steer_PWMoutput = 635;
 		if(road_width1<70&&road_width2<40)
@@ -218,4 +220,10 @@ void ccd_sc()
 			sc_flag = 0;
 		}
 	}
+    
+    if(sc_flag == 1||sc_flag == 2||sc_flag == 3
+      ||sc_flag == 5||sc_flag == 6||sc_flag == 7)
+    {
+        Target_Speed = 140;
+    }
 }

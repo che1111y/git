@@ -77,24 +77,24 @@ void ccd_Steer_Control()
 {
     if(sz_flag!=1)
     {
-        if(df<30&&df>-30)
+        if(df<40&&df>-40)
         {
-            steer_KP = 1.15;//speed180以内 p=1.35 d=2.3
+            steer_KP = 1.65;//speed200  1.65   2.3
             steer_KD = 2.3;
         }
-        else if(df>-60&&df<-30)
-        {
-            steer_KP = 1.85;//speed230以内 p=0.15 d=2.1
-            steer_KD = 2.5;
-        }
-        else if(df<60&&df>30)
-        {
-            steer_KP = 1.85;//speed230以内 p=0.15 d=2.1
-            steer_KD = 2.4;
-        }
+//        else if(df>-60&&df<-30)
+//        {
+//            steer_KP = 1.65;//
+//            steer_KD = 2.5;
+//        }
+//        else if(df<60&&df>30)
+//        {
+//            steer_KP = 1.65;//
+//            steer_KD = 2.4;
+//        }
         else
         {
-            steer_KP = 2.35;//speed230以内 p=0.15 d=2.1
+            steer_KP = 2.55;//speed180   2.55   2.7 
             steer_KD = 2.7;
         }
         

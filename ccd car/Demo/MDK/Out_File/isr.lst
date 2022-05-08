@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  isr                                                                30/04/22  21:52:41  PAGE 1   
+C251 COMPILER V5.60.0,  isr                                                                08/05/22  22:12:43  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE isr
@@ -66,7 +66,7 @@ stmt  level    source
    53   2              UART2_CLEAR_TX_FLAG;
    54   2                      busy[2] = 0;
    55   2              }
-C251 COMPILER V5.60.0,  isr                                                                30/04/22  21:52:41  PAGE 2   
+C251 COMPILER V5.60.0,  isr                                                                08/05/22  22:12:43  PAGE 2   
 
    56   1          if(UART2_GET_RX_FLAG)
    57   1              {
@@ -108,8 +108,8 @@ stmt  level    source
    93   2                      //接收数据寄存器为：S4BUF;
    94   2              if(wireless_type == WIRELESS_SI24R1)
    95   2                  wireless_uart_callback();           //无线转串口回调函数
-   96   2              else if(wireless_type == WIRELESS_CH9141)
-   97   2                  bluetooth_ch9141_uart_callback();   //蓝牙转串口回调函数
+   96   2              else if(wireless_type == WIRELESS_CH573)
+   97   2                  wireless_ch573_callback();                                  //573转串口回调函数
    98   2              }
    99   1      }
   100          
@@ -134,7 +134,7 @@ stmt  level    source
   119          void INT4_Isr() interrupt 16
   120          {
   121   1              INT4_CLEAR_FLAG;  //清除中断标志
-C251 COMPILER V5.60.0,  isr                                                                30/04/22  21:52:41  PAGE 3   
+C251 COMPILER V5.60.0,  isr                                                                08/05/22  22:12:43  PAGE 3   
 
   122   1      }
   123          
@@ -168,7 +168,7 @@ stmt  level    source
   151   1      //    judge();
   152   1      //    sideway();
   153   1            ccd_sz();
-  154   1      //        ccd_sc();
+  154   1                ccd_sc();
   155   1              
   156   1          //舵机
   157   1          steer_output(Steer_PWMoutput);
@@ -202,7 +202,7 @@ stmt  level    source
   185          //void  PCA_Isr()   interrupt 7;
   186          //void  UART2_Isr() interrupt 8;
   187          //void  SPI_Isr()   interrupt 9;
-C251 COMPILER V5.60.0,  isr                                                                30/04/22  21:52:41  PAGE 4   
+C251 COMPILER V5.60.0,  isr                                                                08/05/22  22:12:43  PAGE 4   
 
   188          //void  INT2_Isr()  interrupt 10;
   189          //void  INT3_Isr()  interrupt 11;
@@ -221,7 +221,7 @@ stmt  level    source
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       404     ------
+  code size            =       407     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------

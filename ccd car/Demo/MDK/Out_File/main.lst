@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  main                                                               30/04/22  21:52:41  PAGE 1   
+C251 COMPILER V5.60.0,  main                                                               08/05/22  22:12:43  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE main
@@ -12,40 +12,41 @@ stmt  level    source
     1          #include "headfile.h"
     2          
     3          
-    4          void main()
-    5          {
-    6   1              DisableGlobalIRQ();
-    7   1              board_init();
-    8   1              init();
-    9   1              EnableGlobalIRQ();
-   10   1          while(1)
-   11   1              {                                                                                                       
-             -                                                                                                                        
-             -                                                                                                                        
-             -                                                             
-   12   2              //bee = 0;
-   13   2              //menu();
-   14   2              display();
-   15   2              //NiMing(encoder_left, encoder_right, Right_Duty, Left_Duty, Target_Speed);
-   16   2              //ccd_up();
-   17   2              //VCAN();
-   18   2              //wx_key();
-   19   2          }
-   20   1      }
-   21          
-   22          
+    4          uint8 send_test_dat[] = "wireless ch573 demo\r\n";
+    5          
+    6          void main()
+    7          {
+    8   1              DisableGlobalIRQ();
+    9   1          sys_clk = 30000000;     //设置系统频率为30MHz
+   10   1              board_init();
+   11   1          
+   12   1              init();
+   13   1              EnableGlobalIRQ();
+   14   1          while(1)
+   15   1              {              
+   16   2      //        wireless_ch573_send_buff(send_test_dat, sizeof(send_test_dat)); //初始化正常 输出测试信息  
+   17   2      //              P52 = 0;        
+   18   2              //delay_ms(1000);        
+   19   2              //bee = 0;
+   20   2              //NiMing(encoder_left, encoder_right, Right_Duty, Left_Duty, Target_Speed);
+   21   2              //ccd_up();
+   22   2              //VCAN();
+   23   2              //wx_key();
+   24   2          }
+   25   1      }
+   26          
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =        17     ------
+  code size            =        26     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =    ------     ------
+  edata size           =        22     ------
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
@@ -53,7 +54,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =    ------     ------
+  hconst size          =        26     ------
 End of Module Information.
 
 

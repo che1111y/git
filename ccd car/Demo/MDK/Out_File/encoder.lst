@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  encoder                                                            30/04/22  21:52:42  PAGE 1   
+C251 COMPILER V5.60.0,  encoder                                                            08/05/22  22:12:45  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE encoder
@@ -66,7 +66,7 @@ stmt  level    source
    55   2              }
    56   1              en_suml = en_datl[0]*0.05+en_datl[1]*0.1+en_datl[2]*0.15+en_datl[3]*0.3+en_datl[4]*0.4;
    57   1              
-C251 COMPILER V5.60.0,  encoder                                                            30/04/22  21:52:42  PAGE 2   
+C251 COMPILER V5.60.0,  encoder                                                            08/05/22  22:12:45  PAGE 2   
 
    58   1              for(e=0;e<e_val;e++)                                                                                                                    
    59   1              {

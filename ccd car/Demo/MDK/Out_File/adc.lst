@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  adc                                                                30/04/22  21:52:41  PAGE 1   
+C251 COMPILER V5.60.0,  adc                                                                08/05/22  22:12:43  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE adc
@@ -66,7 +66,7 @@ stmt  level    source
    55   5                       ad_valu[i][k+1] = ad_valu[i][k];
    56   5                       ad_valu[i][k] = temp;
    57   5                    }
-C251 COMPILER V5.60.0,  adc                                                                30/04/22  21:52:41  PAGE 2   
+C251 COMPILER V5.60.0,  adc                                                                08/05/22  22:12:43  PAGE 2   
 
    58   4                 }
    59   3              }
@@ -135,7 +135,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-C251 COMPILER V5.60.0,  adc                                                                30/04/22  21:52:41  PAGE 3   
+C251 COMPILER V5.60.0,  adc                                                                08/05/22  22:12:43  PAGE 3   
 
   hconst size          =        40     ------
 End of Module Information.

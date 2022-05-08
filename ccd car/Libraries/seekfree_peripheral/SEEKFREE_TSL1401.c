@@ -89,7 +89,7 @@ void ccd_collect(void)
 
     CCD_CLK(1);
     CCD_SI(0);
-		CCD_CLK(0);
+	CCD_CLK(0);
     CCD_SI(1);
     CCD_CLK(1);
     CCD_SI(0);
@@ -109,7 +109,7 @@ void ccd_collect2(void)
 
     CCD_CLK2(1);
     CCD_SI2(0);
-		CCD_CLK2(0);
+	CCD_CLK2(0);
     CCD_SI2(1);
     CCD_CLK2(1);
     CCD_SI2(0);

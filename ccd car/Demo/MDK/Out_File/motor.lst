@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  motor                                                              30/04/22  22:19:19  PAGE 1   
+C251 COMPILER V5.60.0,  motor                                                              08/05/22  22:47:41  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE motor
@@ -66,7 +66,7 @@ stmt  level    source
    55   1              
    56   1      }
    57          
-C251 COMPILER V5.60.0,  motor                                                              30/04/22  22:19:19  PAGE 2   
+C251 COMPILER V5.60.0,  motor                                                              08/05/22  22:47:41  PAGE 2   
 
    58          /**
    59          *  @name   : PWM_Control
@@ -74,55 +74,59 @@ stmt  level    source
    61          */
    62          void PWM_Control(void)
    63          {
-   64   1              if(df<30&&df>-30)
-   65   1              {
-   66   2                  Target_Speed =230;//30
-   67   2              }
-   68   1              else if(df>-60&&df<-30)
-   69   1              {
-   70   2                  Target_Speed =210;//30
-   71   2              }
-   72   1              else if(df<60&&df>30)
-   73   1              {
-   74   2                  Target_Speed =210;//30
-   75   2              }
-   76   1              else 
-   77   1              {
-   78   2                  Target_Speed =180;//30
-   79   2              }
-   80   1      //    if(cbh<10 && cbh>-10)
-   81   1      //    {
-   82   1      //        Target_Speed = 45;//55
-   83   1      //    }
-   84   1      //    else if((cbh>10 && cbh<30)||(cbh<-10 && cbh>-30))
+   64   1            if(sc_flag != 1||sc_flag != 2||sc_flag != 3
+   65   1            ||sc_flag != 5||sc_flag != 6||sc_flag != 7)
+   66   1            {
+   67   2              if(df<40&&df>-40)
+   68   2              {
+   69   3                  Target_Speed =210;//30
+   70   3              }
+   71   2      //        else if(df>-60&&df<-30)
+   72   2      //        {
+   73   2      //            Target_Speed =70;//30
+   74   2      //        }
+   75   2      //        else if(df<60&&df>30)
+   76   2      //        {
+   77   2      //            Target_Speed =70;//30
+   78   2      //        }
+   79   2              else 
+   80   2              {
+   81   3                  Target_Speed =190;//30
+   82   3              }
+   83   2           }
+   84   1      //    if(cbh<10 && cbh>-10)
    85   1      //    {
-   86   1      //        Target_Speed = 30;//40
+   86   1      //        Target_Speed = 45;//55
    87   1      //    }
-   88   1      //    else
+   88   1      //    else if((cbh>10 && cbh<30)||(cbh<-10 && cbh>-30))
    89   1      //    {
-   90   1      //        Target_Speed =200;//30
+   90   1      //        Target_Speed = 30;//40
    91   1      //    }
-   92   1      //  if(ad_value3<10&&ad_value2<10)
-   93   1      //  {
-   94   1      //     pwm_duty(PWMA_CH1P_P60, 0);
-   95   1      //     pwm_duty(PWMA_CH2P_P62, 0);
-   96   1      //     pwm_duty(PWMA_CH3P_P64, 0);                                              
-   97   1      //     pwm_duty(PWMA_CH4P_P66, 0);
-   98   1      //  }
-   99   1      //  else
-  100   1      //  { 
-  101   1      //    PWM_Out = PID_Increase(Speed_KP,Speed_KI,Speed_KD, encoder_left, Target_Speed);
-  102   1          Left_Duty = PID_LIncrease(Speed_KP,Speed_KI,Speed_KD, encoder_left, Target_Speed);
-  103   1          Right_Duty = PID_RIncrease(Speed_KP,Speed_KI,Speed_KD, encoder_right, Target_Speed);
-  104   1      //  }
-  105   1      }
-  106          
-  107            
+   92   1      //    else
+   93   1      //    {
+   94   1      //        Target_Speed =200;//30
+   95   1      //    }
+   96   1      //  if(ad_value3<10&&ad_value2<10)
+   97   1      //  {
+   98   1      //     pwm_duty(PWMA_CH1P_P60, 0);
+   99   1      //     pwm_duty(PWMA_CH2P_P62, 0);
+  100   1      //     pwm_duty(PWMA_CH3P_P64, 0);                                              
+  101   1      //     pwm_duty(PWMA_CH4P_P66, 0);
+  102   1      //  }
+  103   1      //  else
+  104   1      //  { 
+  105   1      //    PWM_Out = PID_Increase(Speed_KP,Speed_KI,Speed_KD, encoder_left, Target_Speed);
+  106   1          Left_Duty = PID_LIncrease(Speed_KP,Speed_KI,Speed_KD, encoder_left, Target_Speed);
+  107   1          Right_Duty = PID_RIncrease(Speed_KP,Speed_KI,Speed_KD, encoder_right, Target_Speed);
+  108   1      //  }
+  109   1      }
+  110          
+  111            
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       410     ------
+  code size            =       406     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
@@ -131,12 +135,12 @@ Module Information          Static   Overlayable
   xdata-const size     =    ------     ------
   edata size           =        28     ------
   bit size             =    ------     ------
+C251 COMPILER V5.60.0,  motor                                                              08/05/22  22:47:41  PAGE 3   
+
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
   ebitaddressable size =    ------     ------
   far data size        =    ------     ------
-C251 COMPILER V5.60.0,  motor                                                              30/04/22  22:19:19  PAGE 3   
-
   huge data size       =    ------     ------
   const size           =    ------     ------
   hconst size          =        56     ------

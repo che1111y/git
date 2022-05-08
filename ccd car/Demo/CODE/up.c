@@ -80,7 +80,7 @@ void NiMing(int16 A, int16 B, int16 C,int16 D,int16 E)
 
 void ccd_up()
 {
-	if(KEY1==1){
+	if(UP==1){
         
     if(tsl1401_finish_flag){
         
@@ -94,7 +94,7 @@ void ccd_up()
     }
 	}
 	
-	if(KEY1==0){  
+	if(UP==0){  
 		if(tsl1401_finish_flag2){
         
 		//发送图像到上位机

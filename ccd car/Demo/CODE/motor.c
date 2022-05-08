@@ -61,22 +61,26 @@ void PWM_Output(int R_Duty,int L_Duty)
 */
 void PWM_Control(void)
 {
-        if(df<30&&df>-30)
-        {
-            Target_Speed =230;//30
-        }
-        else if(df>-60&&df<-30)
-        {
-            Target_Speed =210;//30
-        }
-        else if(df<60&&df>30)
+      if(sc_flag != 1||sc_flag != 2||sc_flag != 3
+      ||sc_flag != 5||sc_flag != 6||sc_flag != 7)
+      {
+        if(df<40&&df>-40)
         {
             Target_Speed =210;//30
         }
+//        else if(df>-60&&df<-30)
+//        {
+//            Target_Speed =70;//30
+//        }
+//        else if(df<60&&df>30)
+//        {
+//            Target_Speed =70;//30
+//        }
         else 
         {
-            Target_Speed =180;//30
+            Target_Speed =190;//30
         }
+     }
 //    if(cbh<10 && cbh>-10)
 //    {
 //        Target_Speed = 45;//55

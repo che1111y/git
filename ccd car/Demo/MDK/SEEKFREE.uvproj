@@ -600,14 +600,14 @@
               <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_AT24C02.h</FilePath>
             </File>
             <File>
-              <FileName>SEEKFREE_BLUETOOTH_CH9141.c</FileName>
+              <FileName>SEEKFREE_WIRELESS_CH573.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_BLUETOOTH_CH9141.c</FilePath>
+              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_WIRELESS_CH573.c</FilePath>
             </File>
             <File>
-              <FileName>SEEKFREE_BLUETOOTH_CH9141.h</FileName>
+              <FileName>SEEKFREE_WIRELESS_CH573.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_BLUETOOTH_CH9141.h</FilePath>
+              <FilePath>..\..\Libraries\seekfree_peripheral\SEEKFREE_WIRELESS_CH573.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -658,16 +658,6 @@
               <FileName>adc.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\CODE\adc.h</FilePath>
-            </File>
-            <File>
-              <FileName>display.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\CODE\display.c</FilePath>
-            </File>
-            <File>
-              <FileName>display.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\display.h</FilePath>
             </File>
             <File>
               <FileName>init.c</FileName>
@@ -758,6 +748,16 @@
               <FileName>ccd.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\CODE\ccd.h</FilePath>
+            </File>
+            <File>
+              <FileName>menu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\menu.c</FilePath>
+            </File>
+            <File>
+              <FileName>menu.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\CODE\menu.h</FilePath>
             </File>
           </Files>
         </Group>

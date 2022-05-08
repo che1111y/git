@@ -24,11 +24,10 @@
 ".\Out_File\SEEKFREE_VIRSCO.obj",
 ".\Out_File\SEEKFREE_WIRELESS.obj",
 ".\Out_File\SEEKFREE_AT24C02.obj",
-".\Out_File\SEEKFREE_BLUETOOTH_CH9141.obj",
+".\Out_File\SEEKFREE_WIRELESS_CH573.obj",
 ".\Out_File\isr.obj",
 ".\Out_File\main.obj",
 ".\Out_File\adc.obj",
-".\Out_File\display.obj",
 ".\Out_File\init.obj",
 ".\Out_File\motor.obj",
 ".\Out_File\pid.obj",
@@ -37,7 +36,8 @@
 ".\Out_File\encoder.obj",
 ".\Out_File\up.obj",
 ".\Out_File\element.obj",
-".\Out_File\ccd.obj" 
+".\Out_File\ccd.obj",
+".\Out_File\menu.obj" 
 TO ".\Out_File\SEEKFREE" 
 PRINT(".\Out_File\SEEKFREE.map") CASE DISABLEWARNING (16,57) 
 REMOVEUNUSED 

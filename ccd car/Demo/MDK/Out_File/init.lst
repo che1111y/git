@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  init                                                               30/04/22  21:52:41  PAGE 1   
+C251 COMPILER V5.60.0,  init                                                               08/05/22  22:12:44  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE init
@@ -15,21 +15,24 @@ stmt  level    source
     4          {
     5   1          //uart_init(UART_2, UART2_RX_P10, UART2_TX_P11, 115200, TIM_2);
     6   1          pit_timer_ms(TIM_4, 1);
-    7   1          pit_timer_ms(TIM_1, 5);
-    8   1          pit_timer_ms(TIM_3, 5);
+    7   1      //    pit_timer_ms(TIM_1, 5);
+    8   1      //    pit_timer_ms(TIM_3, 5);
     9   1              //dc_init();
    10   1              motor_init();
-   11   1              menu_init();
-   12   1          encoder_init();
-   13   1              steer_init();
-   14   1          ccd_init();
-   15   1          //gpio_mode(P0_2,GPO_PP);
-   16   1      }
+   11   1              ips114_init();
+   12   1          ips114_clear(BLUE);
+   13   1          encoder_init();
+   14   1              steer_init();
+   15   1          ccd_init();
+   16   1          delay_ms(300);
+   17   1          wireless_ch573_init();
+   18   1          //gpio_mode(P0_2,GPO_PP);
+   19   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =        48     ------
+  code size            =        43     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------

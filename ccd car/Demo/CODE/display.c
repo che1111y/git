@@ -231,8 +231,8 @@ void display()
 		ips114_showint16(100, 7, Broad_width2);
     
 //    ips114_showint16(0, 4, cbh);
-    ips114_showint16(0, 5, Outside_black1);
-    ips114_showint16(0, 6, Outside_black2);
+    ips114_showint16(0, 5, sc_flag);
+    //ips114_showint16(0, 6, Outside_black2);
     
 //      ips114_showfloat(0, 1, Speed_KI,3,3);
 //      ips114_showfloat(0, 2, Speed_KP,3,3);

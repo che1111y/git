@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  steer                                                              30/04/22  22:32:13  PAGE 1   
+C251 COMPILER V5.60.0,  steer                                                              08/05/22  22:33:11  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE steer
@@ -66,7 +66,7 @@ stmt  level    source
    55          //        if(cbh>=-30)
    56          //        {
    57          //          steer_KP = 4.8;
-C251 COMPILER V5.60.0,  steer                                                              30/04/22  22:32:13  PAGE 2   
+C251 COMPILER V5.60.0,  steer                                                              08/05/22  22:33:11  PAGE 2   
 
    58          //          steer_KD = 65;
    59          //        }
@@ -90,24 +90,24 @@ stmt  level    source
    77          {
    78   1          if(sz_flag!=1)
    79   1          {
-   80   2              if(df<30&&df>-30)
+   80   2              if(df<40&&df>-40)
    81   2              {
-   82   3                  steer_KP = 1.15;//speed180以内 p=1.35 d=2.3
+   82   3                  steer_KP = 1.65;//speed200  1.65   2.3
    83   3                  steer_KD = 2.3;
    84   3              }
-   85   2              else if(df>-60&&df<-30)
-   86   2              {
-   87   3                  steer_KP = 1.85;//speed230以内 p=0.15 d=2.1
-   88   3                  steer_KD = 2.5;
-   89   3              }
-   90   2              else if(df<60&&df>30)
-   91   2              {
-   92   3                  steer_KP = 1.85;//speed230以内 p=0.15 d=2.1
-   93   3                  steer_KD = 2.4;
-   94   3              }
+   85   2      //        else if(df>-60&&df<-30)
+   86   2      //        {
+   87   2      //            steer_KP = 1.65;//
+   88   2      //            steer_KD = 2.5;
+   89   2      //        }
+   90   2      //        else if(df<60&&df>30)
+   91   2      //        {
+   92   2      //            steer_KP = 1.65;//
+   93   2      //            steer_KD = 2.4;
+   94   2      //        }
    95   2              else
    96   2              {
-   97   3                  steer_KP = 2.35;//speed230以内 p=0.15 d=2.1
+   97   3                  steer_KP = 2.55;//speed180   2.55   2.7 
    98   3                  steer_KD = 2.7;
    99   3              }
   100   2              
@@ -131,11 +131,11 @@ stmt  level    source
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       259     ------
+  code size            =       186     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
-C251 COMPILER V5.60.0,  steer                                                              30/04/22  22:32:13  PAGE 3   
+C251 COMPILER V5.60.0,  steer                                                              08/05/22  22:33:11  PAGE 3   
 
   pdata size           =    ------     ------
   xdata size           =    ------     ------

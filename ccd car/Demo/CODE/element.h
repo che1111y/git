@@ -3,7 +3,7 @@
 
 #include "headfile.h"
 
-#define bee			P07
+
 
 extern int sz_flag,flag_0;
 extern int sc_flag;

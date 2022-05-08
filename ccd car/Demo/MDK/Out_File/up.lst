@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  up                                                                 30/04/22  21:52:43  PAGE 1   
+C251 COMPILER V5.60.0,  up                                                                 08/05/22  22:12:45  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE up
@@ -66,7 +66,7 @@ stmt  level    source
    55   1              Data_to_Send[_cnt++] = 0xAA;
    56   1              Data_to_Send[_cnt++] = 0xFF;
    57   1              Data_to_Send[_cnt++] = 0xF1;
-C251 COMPILER V5.60.0,  up                                                                 30/04/22  21:52:43  PAGE 2   
+C251 COMPILER V5.60.0,  up                                                                 08/05/22  22:12:45  PAGE 2   
 
    58   1              Data_to_Send[_cnt++] = 10;
    59   1              Data_to_Send[_cnt++] = BYTE1(A);
@@ -93,7 +93,7 @@ stmt  level    source
    80          
    81          void ccd_up()
    82          {
-   83   1              if(KEY1==1){
+   83   1              if(UP==1){
    84   2              
    85   2          if(tsl1401_finish_flag){
    86   3              
@@ -107,7 +107,7 @@ stmt  level    source
    94   3          }
    95   2              }
    96   1              
-   97   1              if(KEY1==0){  
+   97   1              if(UP==0){  
    98   2                      if(tsl1401_finish_flag2){
    99   3              
   100   3                      //发送图像到上位机
@@ -135,7 +135,7 @@ Module Information          Static   Overlayable
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
-C251 COMPILER V5.60.0,  up                                                                 30/04/22  21:52:43  PAGE 3   
+C251 COMPILER V5.60.0,  up                                                                 08/05/22  22:12:45  PAGE 3   
 
   ebitaddressable size =    ------     ------
   far data size        =    ------     ------

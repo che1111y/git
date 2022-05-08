@@ -38,13 +38,12 @@
 #include "SEEKFREE_WIRELESS.h"
 #include "SEEKFREE_PRINTF.h"
 #include "SEEKFREE_AT24C02.h"
-#include "SEEKFREE_BLUETOOTH_CH9141.h"
+#include "SEEKFREE_WIRELESS_CH573.h"
 
 
 //------Í·ÎÄ¼þ
 #include "math.h"
 #include "adc.h"
-#include "display.h"
 #include "init.h"
 #include "motor.h"
 #include "pid.h"

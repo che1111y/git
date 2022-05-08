@@ -93,8 +93,8 @@ void UART4_Isr() interrupt 18
 		//接收数据寄存器为：S4BUF;
         if(wireless_type == WIRELESS_SI24R1)
             wireless_uart_callback();           //无线转串口回调函数
-        else if(wireless_type == WIRELESS_CH9141)
-            bluetooth_ch9141_uart_callback();   //蓝牙转串口回调函数
+        else if(wireless_type == WIRELESS_CH573)
+            wireless_ch573_callback();   				//573转串口回调函数
 	}
 }
 
@@ -151,7 +151,7 @@ void TM4_Isr() interrupt 20
 //    judge();
 //    sideway();
       ccd_sz();
-//	  ccd_sc();
+	  ccd_sc();
 	
     //舵机
     steer_output(Steer_PWMoutput);

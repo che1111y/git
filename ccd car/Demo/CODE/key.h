@@ -4,18 +4,22 @@
 
 extern int pwm;
 
-#define KEY1				P70                     //下
-#define KEY2				P36                     //上
-#define KEY3			    P71                    //左
-#define KEY4				P37                    //右
-#define KEY5				P41                     //确定
-#define bmKEY1			P45                     //下
-#define bmKEY2			P46                     //上
-#define bmKEY3			P53                    //左
-#define bmKEY4			P13                    //右
+//定义按键引脚******************KEY
+#define UP       P36
+#define DOWN     P70
+#define LEFT     P71
+#define RIGHT    P37
+#define CENTER   P41
 
-void key_init();
-void key(void);
-void wx_key();
+//定义拨码开关引脚*************SWITCH
+#define SW1     P45
+#define SW2     P46
+#define SW3     P53
+#define SW4     P13
+
+//unsigned char Read_Key_Q(gpio_pin_enum key);
+
+//定义蜂鸣器引脚****************BUZZER
+#define bee		P07
 
 #endif

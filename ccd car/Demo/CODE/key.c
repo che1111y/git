@@ -1,160 +1,32 @@
 #include "headfile.h"
 
-
 int pwm;
 
-/*==========================五项按键==============================*/
-void wx_key()
-{
-      if(KEY1==0)//主界面下
-      {
-        ips114_clear(BLUE);
-        Speed_KI += 0.1;
-      }
+//拨码开关
+uint8 key1_boma=0;
+uint8 key2_boma=0;
+uint8 key3_boma=0;
+uint8 key4_boma=0;
 
-      if(KEY2==0)//主界面上
-      {
-        ips114_clear(BLUE);
-        Speed_KI -= 0.1;
-      }
-    
-      if(KEY3==0)//主界面下
-      {
-        ips114_clear(BLUE);
-        Speed_KP += 1;
-      }
+///*按键去抖函数——> 返回值：按下返回 1 ，否则返回 0 */
+//uint8 Read_Key_Q(gpio_pin_enum key)
+//{
+//    if(gpio_get_level(key) == 0)
+//    {
+//        system_delay(10);//延迟10Ms
+//        if( gpio_get_level(key) == 0)
+//        {
+//            while(gpio_get_level(key) == 0);
+//            return 1;
+//        }
+//    }
+//    return 0;
+//}
 
-      if(KEY4==0)//主界面上
-      {
-        ips114_clear(BLUE);
-        Speed_KP -= 1;
-      }
-//       if(KEY1==0)//主界面下
-//      {
-//        ips114_clear(BLUE);
-//        x++;
-//      }
-
-//      if(KEY2==0)//主界面上
-//      {
-//        ips114_clear(BLUE);
-//        x--;
-//      }
-//      
-//      if(x==0 && KEY3==0)//主界面下
-//      {
-//        ips114_clear(BLUE);
-//        Speed_KI += 10;
-//      }
-
-//      if(x==0 && KEY4==0)//主界面上
-//      {
-//        ips114_clear(BLUE);
-//        Speed_KI -= 10;
-//      } 
-//      
-//      if(x==1 && KEY3==0)//主界面下
-//      {
-//        ips114_clear(BLUE);
-//        Speed_KP += 10;
-//      }
-
-//      if(x==1 && KEY4==0)//主界面上
-//      {
-//        ips114_clear(BLUE);
-//        Speed_KP -=10;
-//      }
-//      
-
-////      if(y==0 && KEY1==0)//主界面下
-////      {
-////        ips114_clear(BLUE);
-////        x++;
-////      }
-
-////      if(y==0 && KEY2==0)//主界面上
-////      {
-////        ips114_clear(BLUE);
-////        x--;
-////      }
-
-////      if(y==0 && KEY5==0)//y=0主界面,y=1次级界面
-////      {
-////        ips114_clear(BLUE);
-////        y++;
-////      }
-////      
-
-////      if(y==1 && KEY1==0)//次级界面下
-////      {
-////        ips114_clear(BLUE);
-////        m++;
-////      }
-////      if(y==1 && KEY2==0)//次级界面上
-////      {
-////        ips114_clear(BLUE);
-////        m--;
-////      }
-      
-
-      /*if(x==2 && y==1 && m==0 && KEY4==0)
-      {
-        duty1+=100;
-      }
-      if(x==2 && y==1 && m==0 && KEY3==0)
-      {
-        duty1-=100;
-      }
-
-      if(x==2 && y==1 && m==1 && KEY4==0)
-      {
-        duty2+=100;
-      }
-      if(x==2 && y==1 && m==1 && KEY3==0)
-      {
-        duty2-=100;
-      }*/
-      
-      
-//      if(x==3 && y==1 && m==0 && KEY4==0)
-//      {
-//        p+=1;
-//      }
-//      if(x==3 && y==1 && m==0 && KEY3==0)
-//      {
-//        p-=1;
-//      }
-
-//      if(x==3 && y==1 && m==1 && KEY4==0)
-//      {
-//        i+=1;
-//      }
-//      if(x==3 && y==1 && m==1 && KEY3==0)
-//      {
-//        i-=1;
-//      }
-//            
-//      if(x==3 && y==1 && m==2 && KEY4==0)
-//      {
-//        d+=1;
-//      }
-//      if(x==3 && y==1 && m==2 && KEY3==0)
-//      {
-//        d-=1;
-//      }
-      
-//      if(x<0)
-//      {
-//        x=0;
-//      }
-//      if(x>1)
-//      {
-//        x=0;
-//      }
-//      if(m<0)
-//      {
-//        m=0;
-//      }
-
-}
-/*==========================五项按键==============================*/
+/***************拨码开关**************/
+//void boma_set(void)
+//{
+//    //拨码开关
+//    key1_boma  =  gpio_get_level(SW1);
+//    key2_boma  =  gpio_get_level(SW2);
+//}

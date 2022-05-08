@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  display                                                            30/04/22  21:52:41  PAGE 1   
+C251 COMPILER V5.60.0,  display                                                            08/05/22  22:07:54  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE display
@@ -66,7 +66,7 @@ stmt  level    source
    53   1         if(x==0 && y==1 && m==1)
    54   1         {
    55   2            if(io_input_state5==0)
-C251 COMPILER V5.60.0,  display                                                            30/04/22  21:52:41  PAGE 2   
+C251 COMPILER V5.60.0,  display                                                            08/05/22  22:07:54  PAGE 2   
 
    56   2            {
    57   3               ips114_clear(BLUE);
@@ -134,7 +134,7 @@ stmt  level    source
   117   1          
   118   1      
   119   1         if(x==2 && y==1 && m==2)
-C251 COMPILER V5.60.0,  display                                                            30/04/22  21:52:41  PAGE 3   
+C251 COMPILER V5.60.0,  display                                                            08/05/22  22:07:54  PAGE 3   
 
   120   1         {
   121   2            if(io_input_state5==0)
@@ -202,12 +202,13 @@ stmt  level    source
   182   1      }   
   183          /*=====================start=======================*/
   184          
-C251 COMPILER V5.60.0,  display                                                            30/04/22  21:52:41  PAGE 4   
+C251 COMPILER V5.60.0,  display                                                            08/05/22  22:07:54  PAGE 4   
 
   185          /*=====================²Ëµ¥Ö÷³ÌÐò=======================*/
   186          void menu()
   187          {
   188   1           wx_key();
+*** WARNING C140 IN LINE 188 OF ..\CODE\display.c: 'wx_key' undefined; assuming 'extern int wx_key()'
   189   1           menu0();
   190   1           menu1();
   191   1           menu2();
@@ -253,8 +254,8 @@ stmt  level    source
   231   1                      ips114_showint16(100, 7, Broad_width2);
   232   1          
   233   1      //    ips114_showint16(0, 4, cbh);
-  234   1          ips114_showint16(0, 5, Outside_black1);
-  235   1          ips114_showint16(0, 6, Outside_black2);
+  234   1          ips114_showint16(0, 5, sc_flag);
+  235   1          //ips114_showint16(0, 6, Outside_black2);
   236   1          
   237   1      //      ips114_showfloat(0, 1, Speed_KI,3,3);
   238   1      //      ips114_showfloat(0, 2, Speed_KP,3,3);
@@ -265,14 +266,14 @@ stmt  level    source
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =      1433     ------
+  code size            =      1420     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
-  xdata size           =    ------     ------
-C251 COMPILER V5.60.0,  display                                                            30/04/22  21:52:41  PAGE 5   
+C251 COMPILER V5.60.0,  display                                                            08/05/22  22:07:54  PAGE 5   
 
+  xdata size           =    ------     ------
   xdata-const size     =    ------     ------
   edata size           =        34     ------
   bit size             =    ------     ------
@@ -286,4 +287,4 @@ Module Information          Static   Overlayable
 End of Module Information.
 
 
-C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+C251 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
