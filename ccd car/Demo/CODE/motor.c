@@ -1,11 +1,14 @@
 #include "headfile.h"
 
 uint16 PWM_LeftOut,PWM_RightOut,Now_speed = 0,PWM_Out=0;
-float Target_Speed = 0;
+float Target_Speed_L = 0 ,Target_Speed_R = 0 ;
 uint16 Left_Duty = 0,Right_Duty = 0;
-float Speed_KP = 20.0,//150//45//30
-	  Speed_KI = 1.8,//6//1.8
-	  Speed_KD = 0;
+float L_Speed_KP = 20.0,//150//45//30
+	  L_Speed_KI = 1.8,//6//1.8
+	  L_Speed_KD = 0;
+float R_Speed_KP = 20.0,//150//45//30
+	  R_Speed_KI = 1.8,//6//1.8
+	  R_Speed_KD = 0;
 
 
 /**
@@ -66,7 +69,8 @@ void PWM_Control(void)
       {
         if(df<40&&df>-40)
         {
-            Target_Speed =210;//30
+            Target_Speed_L =210;//30
+            Target_Speed_R =210;//30
         }
 //        else if(df>-60&&df<-30)
 //        {
@@ -78,7 +82,8 @@ void PWM_Control(void)
 //        }
         else 
         {
-            Target_Speed =190;//30
+            Target_Speed_L =190;//30
+            Target_Speed_R =190;//30
         }
      }
 //    if(cbh<10 && cbh>-10)
@@ -103,8 +108,8 @@ void PWM_Control(void)
 //  else
 //  { 
 //    PWM_Out = PID_Increase(Speed_KP,Speed_KI,Speed_KD, encoder_left, Target_Speed);
-    Left_Duty = PID_LIncrease(Speed_KP,Speed_KI,Speed_KD, encoder_left, Target_Speed);
-    Right_Duty = PID_RIncrease(Speed_KP,Speed_KI,Speed_KD, encoder_right, Target_Speed);
+    Left_Duty = PID_LIncrease(L_Speed_KP,L_Speed_KI,L_Speed_KD, encoder_left, Target_Speed_L);
+    Right_Duty = PID_RIncrease(R_Speed_KP,R_Speed_KI,R_Speed_KD, encoder_right, Target_Speed_R);
 //  }
 }
 

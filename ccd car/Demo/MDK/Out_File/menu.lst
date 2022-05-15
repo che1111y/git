@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  menu                                                               08/05/22  22:12:46  PAGE 1   
+C251 COMPILER V5.60.0,  menu                                                               15/05/22  14:42:15  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE menu
@@ -9,8 +9,8 @@ COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\CODE\menu.c XSMALL INTR2 WA
 
 stmt  level    source
 
-    1          #include "menu.h"
-    2          #include "key.h"
+    1          #include "headfile.h"
+    2          
     3          uint8   start_flag=0;     //出库完成标志位
     4          uint16  start_time=0;     //出库时间
     5          uint8 fun=0;
@@ -43,384 +43,378 @@ stmt  level    source
    32          void fun1(void)
    33          {
    34   1          fun=1;
-   35   1          ips114_showstr(2,0,"image <-");
-   36   1          ips114_showstr(2,0,"image");
+   35   1          ips114_showstr(2,0,"ccd    <-");
+   36   1          ips114_showstr(2,0,"ccd");
    37   1          
-   38   1          ips114_showstr(2,40,"engine");
+   38   1          ips114_showstr(2,1,"pid");
    39   1      
-   40   1          ips114_showstr(2,80,"motor");
+   40   1          ips114_showstr(2,2,"motor");
    41   1      
-   42   1          ips114_showstr(2,120,"start");
+   42   1      //    ips114_showstr(2,3,"start");
    43   1      }
    44          void fun2(void)
    45          {
    46   1          fun=2;
-   47   1          ips114_showstr(2,0,"image");
+   47   1          ips114_showstr(2,0,"ccd");
    48   1      
-   49   1          ips114_showstr(2,40,"engine <-");
-   50   1          ips114_showstr(2,40,"engine");
+   49   1          ips114_showstr(2,1,"pid  <-");
+   50   1          ips114_showstr(2,1,"pid");
    51   1          
-   52   1          ips114_showstr(2,80,"motor");
+   52   1          ips114_showstr(2,2,"motor");
    53   1      
-   54   1          ips114_showstr(2,120,"start");
+   54   1      //    ips114_showstr(2,3,"start");
    55   1      }
    56          void fun3(void)
    57          {
-C251 COMPILER V5.60.0,  menu                                                               08/05/22  22:12:46  PAGE 2   
+C251 COMPILER V5.60.0,  menu                                                               15/05/22  14:42:15  PAGE 2   
 
    58   1          fun=3;
-   59   1          ips114_showstr(2,0,"image");
+   59   1          ips114_showstr(2,0,"ccd");
    60   1      
-   61   1          ips114_showstr(2,40,"engine");
+   61   1          ips114_showstr(2,1,"pid");
    62   1      
-   63   1          ips114_showstr(2,80,"motor <-");
-   64   1          ips114_showstr(2,80,"motor");
-   65   1          
-   66   1          ips114_showstr(2,120,"start");
+   63   1          ips114_showstr(2,2,"motor  <-");
+   64   1          ips114_showstr(2,2,"motor");
+   65   1         
+   66   1      //    ips114_showstr(2,3,"start");
    67   1      }
-   68          void fun4(void)
+   68          void fun4()
    69          {
    70   1          fun=4;
-   71   1          ips114_showstr(2,0,"image");
-   72   1      
-   73   1          ips114_showstr(2,40,"engine");
-   74   1      
-   75   1          ips114_showstr(2,80,"motor");
-   76   1      
-   77   1          ips114_showstr(2,120,"start <-");
-   78   1          ips114_showstr(2,120,"start");
-   79   1      }
-   80          void fun5()
-   81          {
-   82   1          fun=5;
-   83   1      //    ips114_showstr(0,60,"LCDW");   //测量赛道使用
-   84   1      //    ips114_showuint8(40,60,j);
-   85   1      //    ips114_showstr(0,80,"LCDH");
-   86   1      //    ips114_showuint8(40,80,k);
-   87   1      //    ips114_showstr(0,100,"steer");
-   88   1      //    ips114_showint16(40,100,steer_duty);
-   89   1      //    ips114_showstr(0,120,"out");
-   90   1      //    ips114_showfloat(40,120,Dir_error,3,3);
-   91   1      //    ips114_showstr(120,80,"<-");
-   92   1      }
-   93          void fun6()
-   94          {
-   95   1          fun=6;
-   96   1      //    ips114_showstr(0,60,"LCDW");    //测量赛道使用
-   97   1      //    ips114_showuint8(40,60,j);
-   98   1      //    ips114_showstr(0,80,"LCDH");
-   99   1      //    ips114_showuint8(40,80,k);
-  100   1      //    ips114_showstr(0,100,"cir");
-  101   1      //    ips114_showuint8(40,100,leftcircle_judge_flag);
-  102   1      //    ips114_showuint8(80,100,rightcircle_judge_flag);
-  103   1      //    ips114_showstr(0,120,"shizi");
-  104   1      //    ips114_showuint8(40,120,re_flag_shizi);
-  105   1      //    ips114_showstr(0,140,"sancha");
-  106   1      //    ips114_showuint8(60,140,flag_sancha);
-  107   1      //    ips114_showstr(120,100,"<-");
-  108   1      }
-  109          void fun7()
-  110          {
-  111   1          fun=7;
-  112   1          /****舵机PD***/
-  113   1      //    ips114_showstr(0,0,"Dir_P");
-  114   1      //    ips114_showfloat(40,0,Dir_P,2,3);
-  115   1      //    ips114_showstr(0,20,"Dir_D");
-  116   1      //    ips114_showfloat(40,20,Dir_D,2,3);
-  117   1      //    /******速度PID**********/
-  118   1      //    ips114_showstr(0,40,"L_Speed_P");
-  119   1      //    ips114_showfloat(60,40,L_Speed_Kp,2,3);
-  120   1      //    ips114_showstr(0,60,"L_Speed_I");
-  121   1      //    ips114_showfloat(60,60,L_Speed_Ki,2,3);
-  122   1      //    ips114_showstr(0,80,"L_Speed_D");
-  123   1      //    ips114_showfloat(60,80,L_Speed_Kd,2,3);
-C251 COMPILER V5.60.0,  menu                                                               08/05/22  22:12:46  PAGE 3   
+   71   1          ips114_showstr(0,0,"mid");  
+   72   1          ips114_showuint16(80,0,mid);
+   73   1          ips114_showstr(0,1,"df");
+   74   1          ips114_showuint16(80,1,df);
+   75   1          ips114_showstr(0,2,"road_wid1");
+   76   1          ips114_showint16(80,2,road_width1);
+   77   1          ips114_showstr(0,3,"road_wid2");
+   78   1          ips114_showint16(80,3,road_width2);
+   79   1          ips114_showstr(0,4,"B_wid1");
+   80   1          ips114_showint16(80,4,Broad_width1);
+   81   1          ips114_showstr(0,5,"B_wid2");
+   82   1          ips114_showint16(80,5,Broad_width2);
+   83   1      }
+   84          void fun5()
+   85          {
+   86   1          fun=5;
+   87   1          ips114_showstr(0,0,"Lbound");   
+   88   1          ips114_showuint16(80,0,Lboundary_data);
+   89   1          ips114_showstr(0,1,"Rbound");
+   90   1          ips114_showuint16(80,1,Rboundary_data);
+   91   1          ips114_showstr(0,2,"Lbound2");
+   92   1          ips114_showint16(80,2,Lboundary_data2);
+   93   1          ips114_showstr(0,3,"Rbound2");
+   94   1          ips114_showint16(80,3,Rboundary_data2);
+   95   1          ips114_showstr(0,4,"Rboundb");
+   96   1          ips114_showint16(80,4,Rboundary_black);
+   97   1          ips114_showstr(0,5,"Rboundb2");
+   98   1          ips114_showint16(80,5,Rboundary_black2);
+   99   1          ips114_showstr(0,6,"Outb1");
+  100   1          ips114_showint16(80,6,Outside_black1);
+  101   1          ips114_showstr(0,7,"Outb2");
+  102   1          ips114_showint16(80,7,Outside_black2);
+  103   1      }
+  104          void fun6()
+  105          {
+  106   1          fun=6;
+  107   1          /****舵机PD***/
+  108   1          ips114_showstr(0,0,"steer_KP");
+  109   1          ips114_showfloat(80,0,steer_KP,2,3);
+  110   1          ips114_showstr(0,1,"steer_KD");
+  111   1          ips114_showfloat(80,1,steer_KD,2,3);
+  112   1          /******速度PID**********/
+  113   1          ips114_showstr(0,2,"L_Speed_P");
+  114   1          ips114_showfloat(80,2,L_Speed_KP,2,3);
+  115   1          ips114_showstr(0,3,"L_Speed_I");
+  116   1          ips114_showfloat(80,3,L_Speed_KI,2,3);
+  117   1          ips114_showstr(0,4,"R_Speed_P");
+  118   1          ips114_showfloat(80,4,R_Speed_KP,2,3);
+  119   1          ips114_showstr(0,5,"R_Speed_I");
+  120   1          ips114_showfloat(80,5,R_Speed_KI,2,3);
+  121   1          ips114_showstr(160,0,"<-");
+  122   1      }
+  123          void fun7()
+C251 COMPILER V5.60.0,  menu                                                               15/05/22  14:42:15  PAGE 3   
 
-  124   1      //    ips114_showstr(120,0,"<-");
-  125   1      }
-  126          void fun8()
-  127          {
-  128   1          fun=8;
-  129   1          /****舵机PD***/
-  130   1      //    ips114_showstr(0,0,"Dir_P");
-  131   1      //    ips114_showfloat(40,0,Dir_P,2,3);
-  132   1      //    ips114_showstr(0,20,"Dir_D");
-  133   1      //    ips114_showfloat(40,20,Dir_D,2,3);
-  134   1      //    /******速度PID**********/
-  135   1      //    ips114_showstr(0,40,"L_Speed_P");
-  136   1      //    ips114_showfloat(60,40,L_Speed_Kp,2,3);
-  137   1      //    ips114_showstr(0,60,"L_Speed_I");
-  138   1      //    ips114_showfloat(60,60,L_Speed_Ki,2,3);
-  139   1      //    ips114_showstr(0,80,"L_Speed_D");
-  140   1      //    ips114_showfloat(60,80,L_Speed_Kd,2,3);
-  141   1      //    ips114_showstr(120,20,"<-");
-  142   1      }
-  143          void fun9()
-  144          {
-  145   1          fun=9;
-  146   1          /****舵机PD***/
-  147   1      //    ips114_showstr(0,0,"Dir_P");
-  148   1      //    ips114_showfloat(40,0,Dir_P,2,3);
-  149   1      //    ips114_showstr(0,20,"Dir_D");
-  150   1      //    ips114_showfloat(40,20,Dir_D,2,3);
-  151   1      //    /******速度PID**********/
-  152   1      //    ips114_showstr(0,40,"L_Speed_P");
-  153   1      //    ips114_showfloat(60,40,L_Speed_Kp,2,3);
-  154   1      //    ips114_showstr(0,60,"L_Speed_I");
-  155   1      //    ips114_showfloat(60,60,L_Speed_Ki,2,3);
-  156   1      //    ips114_showstr(0,80,"L_Speed_D");
-  157   1      //    ips114_showfloat(60,80,L_Speed_Kd,2,3);
-  158   1      //    ips114_showstr(120,40,"<-");
-  159   1      }
-  160          void fun10()
-  161          {
-  162   1          fun=10;
-  163   1          /****舵机PD***/
-  164   1      //    ips114_showstr(0,0,"Dir_P");
-  165   1      //    ips114_showfloat(40,0,Dir_P,2,3);
-  166   1      //    ips114_showstr(0,20,"Dir_D");
-  167   1      //    ips114_showfloat(40,20,Dir_D,2,3);
-  168   1      //    /******速度PID**********/
-  169   1      //    ips114_showstr(0,40,"L_Speed_P");
-  170   1      //    ips114_showfloat(60,40,L_Speed_Kp,2,3);
-  171   1      //    ips114_showstr(0,60,"L_Speed_I");
-  172   1      //    ips114_showfloat(60,60,L_Speed_Ki,2,3);
-  173   1      //    ips114_showstr(0,80,"L_Speed_D");
-  174   1      //    ips114_showfloat(60,80,L_Speed_Kd,2,3);
-  175   1      //    ips114_showstr(120,60,"<-");
-  176   1      }
-  177          void fun11()
-  178          {
-  179   1          fun=11;
-  180   1          /****舵机PD***/
-  181   1      //    ips114_showstr(0,0,"Dir_P");
-  182   1      //    ips114_showfloat(40,0,Dir_P,2,3);
-  183   1      //    ips114_showstr(0,20,"Dir_D");
-  184   1      //    ips114_showfloat(40,20,Dir_D,2,3);
-  185   1      //    /******速度PID**********/
-  186   1      //    ips114_showstr(0,40,"L_Speed_P");
-  187   1      //    ips114_showfloat(60,40,L_Speed_Kp,2,3);
-  188   1      //    ips114_showstr(0,60,"L_Speed_I");
-  189   1      //    ips114_showfloat(60,60,L_Speed_Ki,2,3);
-C251 COMPILER V5.60.0,  menu                                                               08/05/22  22:12:46  PAGE 4   
+  124          {
+  125   1          fun=7;
+  126   1          /****舵机PD***/
+  127   1          ips114_showstr(0,0,"steer_KP");
+  128   1          ips114_showfloat(80,0,steer_KP,2,3);
+  129   1          ips114_showstr(0,1,"steer_KD");
+  130   1          ips114_showfloat(80,1,steer_KD,2,3);
+  131   1          /******速度PID**********/
+  132   1          ips114_showstr(0,2,"L_Speed_P");
+  133   1          ips114_showfloat(80,2,L_Speed_KP,2,3);
+  134   1          ips114_showstr(0,3,"L_Speed_I");
+  135   1          ips114_showfloat(80,3,L_Speed_KI,2,3);
+  136   1          ips114_showstr(0,4,"R_Speed_P");
+  137   1          ips114_showfloat(80,4,R_Speed_KP,2,3);
+  138   1          ips114_showstr(0,5,"R_Speed_I");
+  139   1          ips114_showfloat(80,5,R_Speed_KI,2,3);
+  140   1          ips114_showstr(160,1,"<-");
+  141   1      }
+  142          void fun8()
+  143          {
+  144   1          fun=8;
+  145   1          /****舵机PD***/
+  146   1          ips114_showstr(0,0,"steer_KP");
+  147   1          ips114_showfloat(80,0,steer_KP,2,3);
+  148   1          ips114_showstr(0,1,"steer_KD");
+  149   1          ips114_showfloat(80,1,steer_KD,2,3);
+  150   1          /******速度PID**********/
+  151   1          ips114_showstr(0,2,"L_Speed_P");
+  152   1          ips114_showfloat(80,2,L_Speed_KP,2,3);
+  153   1          ips114_showstr(0,3,"L_Speed_I");
+  154   1          ips114_showfloat(80,3,L_Speed_KI,2,3);
+  155   1          ips114_showstr(0,4,"R_Speed_P");
+  156   1          ips114_showfloat(80,4,R_Speed_KP,2,3);
+  157   1          ips114_showstr(0,5,"R_Speed_I");
+  158   1          ips114_showfloat(80,5,R_Speed_KI,2,3);
+  159   1          ips114_showstr(160,2,"<-");
+  160   1      }
+  161          void fun9()
+  162          {
+  163   1          fun=9;
+  164   1          /****舵机PD***/
+  165   1          ips114_showstr(0,0,"steer_KP");
+  166   1          ips114_showfloat(80,0,steer_KP,2,3);
+  167   1          ips114_showstr(0,1,"steer_KD");
+  168   1          ips114_showfloat(80,1,steer_KD,2,3);
+  169   1          /******速度PID**********/
+  170   1          ips114_showstr(0,2,"L_Speed_P");
+  171   1          ips114_showfloat(80,2,L_Speed_KP,2,3);
+  172   1          ips114_showstr(0,3,"L_Speed_I");
+  173   1          ips114_showfloat(80,3,L_Speed_KI,2,3);
+  174   1          ips114_showstr(0,4,"R_Speed_P");
+  175   1          ips114_showfloat(80,4,R_Speed_KP,2,3);
+  176   1          ips114_showstr(0,5,"R_Speed_I");
+  177   1          ips114_showfloat(80,5,R_Speed_KI,2,3);
+  178   1          ips114_showstr(160,3,"<-");
+  179   1      }
+  180          void fun10()
+  181          {
+  182   1          fun=10;
+  183   1          /****舵机PD***/
+  184   1          ips114_showstr(0,0,"steer_KP");
+  185   1          ips114_showfloat(80,0,steer_KP,2,3);
+  186   1          ips114_showstr(0,1,"steer_KD");
+  187   1          ips114_showfloat(80,1,steer_KD,2,3);
+  188   1          /******速度PID**********/
+  189   1          ips114_showstr(0,2,"L_Speed_P");
+C251 COMPILER V5.60.0,  menu                                                               15/05/22  14:42:15  PAGE 4   
 
-  190   1      //    ips114_showstr(0,80,"L_Speed_D");
-  191   1      //    ips114_showfloat(60,80,L_Speed_Kd,2,3);
-  192   1      //    ips114_showstr(120,80,"<-");
-  193   1      }
-  194          void fun12()
-  195          {
-  196   1          fun=12;
-  197   1      //    ips114_showstr(0,0,"GoalSpeed_L");    //目标速度配置
-  198   1      //    ips114_showuint16(80,0,GoalSpeed_L);      //实际速度显示
-  199   1      //    ips114_showstr(0,20,"GoalSpeed_R");
-  200   1      //    ips114_showuint8(80,20,GoalSpeed_R);
-  201   1      //    ips114_showstr(0,40,"L_Encoder");//编码器左
-  202   1      //    ips114_showuint16(80,40,RealSpeed_L);
-  203   1      //    ips114_showstr(0,60,"R_Encoder");//编码器右
-  204   1      //    ips114_showint16(80,60,RealSpeed_R);
-  205   1      //    ips114_showstr(0,80,"L_output");//编码器左
-  206   1      //    ips114_showuint16(80,80,L_PwmOut);
-  207   1      //    ips114_showstr(0,100,"L_output");//编码器右
-  208   1      //    ips114_showint16(80,100,R_PwmOut);
-  209   1      //    ips114_showstr(120,0,"<-");
-  210   1      
-  211   1      }
-  212          void fun13()
-  213          {
-  214   1          fun=13;
-  215   1      //    ips114_showstr(0,0,"GoalSpeed_L");    //目标速度配置
-  216   1      //    ips114_showuint16(80,0,GoalSpeed_L);
-  217   1      //    ips114_showstr(0,20,"GoalSpeed_R");   //实际速度显示
-  218   1      //    tft180_show_uint8(80,20,GoalSpeed_R);
-  219   1      //    ips114_showstr(0,40,"L_Encoder");//编码器左
-  220   1      //    ips114_showuint16(80,40,RealSpeed_L);
-  221   1      //    ips114_showstr(0,60,"R_Encoder");//编码器右
-  222   1      //    ips114_showint16(80,60,RealSpeed_R);
-  223   1      //    ips114_showstr(0,80,"L_output");//编码器左
-  224   1      //    ips114_showuint16(80,80,L_PwmOut);
-  225   1      //    ips114_showstr(0,100,"L_output");//编码器右
-  226   1      //    ips114_showint16(80,100,R_PwmOut);
-  227   1      //    ips114_showstr(120,20,"<-");
-  228   1      
-  229   1      }
-  230          void fun14()
-  231          {
-  232   1          fun=14;
-  233   1      //    ips114_showstr(0,0,"GoalSpeed_L");    //目标速度配置
-  234   1      //    ips114_showuint16(80,0,GoalSpeed_L);
-  235   1      //    ips114_showstr(0,20,"GoalSpeed_R");   //实际速度显示
-  236   1      //    ips114_showuint8(80,20,GoalSpeed_R);
-  237   1      //    ips114_showstr(0,40,"L_Encoder");//编码器左
-  238   1      //    ips114_showuint16(80,40,RealSpeed_L);
-  239   1      //    ips114_showstr(0,60,"R_Encoder");//编码器右
-  240   1      //    ips114_showint16(80,60,RealSpeed_R);
-  241   1      //    ips114_showstr(0,80,"L_output");//编码器左
-  242   1      //    ips114_showuint16(80,80,L_PwmOut);
-  243   1      //    ips114_showstr(0,100,"L_output");//编码器右
-  244   1      //    ips114_showint16(80,100,R_PwmOut);
-  245   1      //    ips114_showstr(120,40,"<-");
-  246   1      
-  247   1      }
-  248          void fun15()
-  249          {
-  250   1          fun=15;
-  251   1      //    ips114_showstr(0,0,"GoalSpeed_L");    //目标速度配置
-  252   1      //    ips114_showuint16(80,0,GoalSpeed_L);
-  253   1      //    ips114_showstr(0,20,"GoalSpeed_R");   //实际速度显示
-  254   1      //    ips114_showuint8(80,20,GoalSpeed_R);
-  255   1      //    ips114_showstr(0,40,"L_Encoder");//编码器左
-C251 COMPILER V5.60.0,  menu                                                               08/05/22  22:12:46  PAGE 5   
+  190   1          ips114_showfloat(80,2,L_Speed_KP,2,3);
+  191   1          ips114_showstr(0,3,"L_Speed_I");
+  192   1          ips114_showfloat(80,3,L_Speed_KI,2,3);
+  193   1          ips114_showstr(0,4,"R_Speed_P");
+  194   1          ips114_showfloat(80,4,R_Speed_KP,2,3);
+  195   1          ips114_showstr(0,5,"R_Speed_I");
+  196   1          ips114_showfloat(80,5,R_Speed_KI,2,3);
+  197   1          ips114_showstr(160,4,"<-");
+  198   1      }
+  199          void fun11()
+  200          {
+  201   1          fun=11;
+  202   1          /****舵机PD***/
+  203   1          ips114_showstr(0,0,"steer_KP");
+  204   1          ips114_showfloat(80,0,steer_KP,2,3);
+  205   1          ips114_showstr(0,1,"steer_KD");
+  206   1          ips114_showfloat(80,1,steer_KD,2,3);
+  207   1          /******速度PID**********/
+  208   1          ips114_showstr(0,2,"L_Speed_P");
+  209   1          ips114_showfloat(80,2,L_Speed_KP,2,3);
+  210   1          ips114_showstr(0,3,"L_Speed_I");
+  211   1          ips114_showfloat(80,3,L_Speed_KI,2,3);
+  212   1          ips114_showstr(0,4,"R_Speed_P");
+  213   1          ips114_showfloat(80,4,R_Speed_KP,2,3);
+  214   1          ips114_showstr(0,5,"R_Speed_I");
+  215   1          ips114_showfloat(80,5,R_Speed_KI,2,3);
+  216   1          ips114_showstr(160,5,"<-");
+  217   1      }
+  218          void fun12()
+  219          {
+  220   1          fun=12;
+  221   1          ips114_showstr(0,0,"TSpeed_L");    //目标速度配置
+  222   1          ips114_showuint16(80,0,Target_Speed_L);      //实际速度显示
+  223   1          ips114_showstr(0,1,"TSpeed_R");
+  224   1          ips114_showuint16(80,1,Target_Speed_R);
+  225   1          ips114_showstr(0,2,"encoder_l");//编码器左
+  226   1          ips114_showuint16(80,2,encoder_left);
+  227   1          ips114_showstr(0,3,"encoder_r");//编码器右
+  228   1          ips114_showint16(80,3,encoder_right);
+  229   1          ips114_showstr(0,4,"L_Duty");//编码器左
+  230   1          ips114_showuint16(80,4,Left_Duty);
+  231   1          ips114_showstr(0,5,"R_Duty");//编码器右
+  232   1          ips114_showint16(80,5,Right_Duty);
+  233   1          ips114_showstr(160,0,"<-");
+  234   1      
+  235   1      }
+  236          void fun13()
+  237          {
+  238   1          fun=13;
+  239   1          ips114_showstr(0,0,"TSpeed_L");    //目标速度配置
+  240   1          ips114_showuint16(80,0,Target_Speed_L);      //实际速度显示
+  241   1          ips114_showstr(0,1,"TSpeed_R");
+  242   1          ips114_showuint16(80,1,Target_Speed_R);
+  243   1          ips114_showstr(0,2,"encoder_l");//编码器左
+  244   1          ips114_showuint16(80,2,encoder_left);
+  245   1          ips114_showstr(0,3,"encoder_r");//编码器右
+  246   1          ips114_showint16(80,3,encoder_right);
+  247   1          ips114_showstr(0,4,"L_Duty");//编码器左
+  248   1          ips114_showuint16(80,4,Left_Duty);
+  249   1          ips114_showstr(0,5,"R_Duty");//编码器右
+  250   1          ips114_showint16(80,5,Right_Duty);
+  251   1          ips114_showstr(160,1,"<-");
+  252   1      
+  253   1      }
+  254          
+  255          key_table code_table[30]=
+C251 COMPILER V5.60.0,  menu                                                               15/05/22  14:42:15  PAGE 5   
 
-  256   1      //    ips114_showuint16(80,40,RealSpeed_L);
-  257   1      //    ips114_showstr(0,60,"R_Encoder");//编码器右
-  258   1      //    ips114_showint16(80,60,RealSpeed_R);
-  259   1      //    ips114_showstr(0,80,"L_output");//编码器左
-  260   1      //    ips114_showuint16(80,80,L_PwmOut);
-  261   1      //    ips114_showstr(0,100,"L_output");//编码器右
-  262   1      //    ips114_showint16(80,100,R_PwmOut);
-  263   1      //    ips114_showstr(120,60,"<-");
-  264   1      }
-  265          void fun16()
-  266          {
-  267   1          fun=16;
-  268   1          /***********三秒启动*************/
-  269   1          ips114_showstr(15,20,"<<  Start  >>");
-  270   1          ips114_showstr(15,20,"    Start    ");
-  271   1          ips114_showstr(15,60,"     3 S     ");
-  272   1          ips114_showstr(15,100,"<<  Start  >>");
-  273   1          ips114_showstr(15,100,"    Start    ");
-  274   1      }
+  256          {
+  257              //current,up,down,enter
+  258              {0,3,1,3,(*fun1)},//第一层，  显示<<  ccd  >>、steer、motor
+  259              {1,0,2,5,(*fun2)},//第一层，  显示  ccd、 <<  steer  >>、motor
+  260              {2,1,3,11,(*fun3)},//第一层，显示  ccd 、steer、<<  motor  >>
+  261          
+  262              {3,4,4,0,(*fun4)},//第二层,显示ccd数据
+  263              {4,3,3,0,(*fun5)},//第二层
+  264          
+  265          
+  266              {5,10,6,1,(*fun6)},//第二层,显示pid数据
+  267              {6,5,7,1,(*fun7)},//第二层
+  268              {7,6,8,1,(*fun8)},//第二层
+  269              {8,7,9,1,(*fun9)},//第二层
+  270              {9,8,10,1,(*fun10)},//第二层
+  271              {10,9,5,1,(*fun11)},//第二层
+  272          
+  273              {11,12,12,2,(*fun12)},//第二层,显示motor数据
+  274              {12,11,11,2,(*fun13)},//第二层
   275          
-  276          
-  277          key_table code_table[30]=
-  278          {
-  279              //current,up,down,enter
-  280              {0,3,1,4,(*fun1)},//第一层，  显示<<  IMAGE  >>、ENGINE、MOTOR、START
-  281              {1,0,2,6,(*fun2)},//第一层，  显示  IMAGE、 <<  ENGINE  >>、MOTOR、START
-  282              {2,1,3,11,(*fun3)},//第一层，显示  IMAGE 、ENGINE、<<  MOTOR  >>、START
-  283              {3,2,0,15,(*fun4)},//第一层，显示  IMAGE 、ENGINE、MOTOR、  <<  START  >>
+  276          //    {0,3,1,4,(*fun1)},//第一层，  显示<<  ccd  >>、steer、motor
+  277          //    {1,0,2,6,(*fun2)},//第一层，  显示  ccd、 <<  steer  >>、motor
+  278          //    {2,1,3,11,(*fun3)},//第一层，显示  ccd 、steer、<<  motor  >>
+  279          //    {3,2,0,15,(*fun4)},//第一层，显示  ccd 、steer、motor
+  280          
+  281          //    
+  282          //    {4,5,5,0,(*fun5)},//第二层
+  283          //    {5,4,4,0,(*fun6)},//第二层
   284          
-  285              
-  286              {4,5,5,0,(*fun5)},//第二层
-  287              {5,4,4,0,(*fun6)},//第二层
-  288          
-  289          
-  290              {6,10,7,1,(*fun7)},//第二层
-  291              {7,6,8,1,(*fun8)},//第二层
-  292              {8,7,9,1,(*fun9)},//第二层
-  293              {9,8,10,1,(*fun10)},//第二层
-  294              {10,9,6,1,(*fun11)},//第二层
-  295          
-  296          
-  297              {11,14,12,2,(*fun12)},//第二层
-  298              {12,11,13,2,(*fun13)},//第二层
-  299              {13,12,14,2,(*fun14)}, //第二层
-  300              {14,13,11,2,(*fun15)}, //第二层
-  301          
-  302              {15,15,15,3,(*fun16)},//第二层
-  303          };
-  304          
-  305          void Key_Driver(void)
-  306          {
-  307   1          //保存按键状态
-  308   1          key1_last_status = key1_status;
-  309   1          key2_last_status = key2_status;
-  310   1          key3_last_status = key3_status;
-  311   1          key4_last_status = key4_status;
-  312   1          key5_last_status = key5_status;
-  313   1          //读取当前按键状态
-  314   1          key1_status = DOWN;
-  315   1          key2_status = UP;
-  316   1          key3_status = CENTER;
-  317   1          key4_status = RIGHT;
-  318   1          key5_status = LEFT;
-  319   1          //检测到按键按下之后  并放开置位标志位
-  320   1          if(key1_status && !key1_last_status)    key1_flag = 1;
-  321   1          if(key2_status && !key2_last_status)    key2_flag = 1;
-C251 COMPILER V5.60.0,  menu                                                               08/05/22  22:12:46  PAGE 6   
+  285          
+  286          //    {6,10,7,1,(*fun7)},//第二层
+  287          //    {7,6,8,1,(*fun8)},//第二层
+  288          //    {8,7,9,1,(*fun9)},//第二层
+  289          //    {9,8,10,1,(*fun10)},//第二层
+  290          //    {10,9,6,1,(*fun11)},//第二层
+  291          
+  292          
+  293          //    {11,14,12,2,(*fun12)},//第二层
+  294          //    {12,11,13,2,(*fun13)},//第二层
+  295          //    {13,12,14,2,(*fun14)}, //第二层
+  296          //    {14,13,11,2,(*fun15)}, //第二层
+  297          
+  298          //    {15,15,15,3,(*fun16)},//第二层
+  299          };
+  300          
+  301          void Key_Driver(void)
+  302          {
+  303   1          //保存按键状态
+  304   1          key1_last_status = key1_status;
+  305   1          key2_last_status = key2_status;
+  306   1          key3_last_status = key3_status;
+  307   1          key4_last_status = key4_status;
+  308   1          key5_last_status = key5_status;
+  309   1          //读取当前按键状态
+  310   1          key1_status = DOWN;
+  311   1          key2_status = UP;
+  312   1          key3_status = CENTER;
+  313   1          key4_status = RIGHT;
+  314   1          key5_status = LEFT;
+  315   1          //检测到按键按下之后  并放开置位标志位
+  316   1          if(key1_status && !key1_last_status)    key1_flag = 1;
+  317   1          if(key2_status && !key2_last_status)    key2_flag = 1;
+  318   1          if(key3_status && !key3_last_status)    key3_flag = 1;
+  319   1          if(key4_status && !key4_last_status)    key4_flag = 1;
+  320   1          if(key5_status && !key5_last_status)    key5_flag = 1;
+  321   1      
+C251 COMPILER V5.60.0,  menu                                                               15/05/22  14:42:15  PAGE 6   
 
-  322   1          if(key3_status && !key3_last_status)    key3_flag = 1;
-  323   1          if(key4_status && !key4_last_status)    key4_flag = 1;
-  324   1          if(key5_status && !key5_last_status)    key5_flag = 1;
-  325   1      
-  326   1          //标志位置位之后，可以使用标志位执行自己想要做的事件
-  327   1          if(key1_flag)
-  328   1          {
-  329   2              key1_flag = 0;//使用按键之后，应该清除标志位
-  330   2              ips114_clear(BLUE);//注意每次按下按键才清一次屏
-  331   2              func_index = code_table[func_index].up;//功能函数的索引值为数组中的up索引值
-  332   2          }
-  333   1      
-  334   1          if(key2_flag)
-  335   1          {
-  336   2              key2_flag = 0;//使用按键之后，应该清除标志位
-  337   2              ips114_clear(BLUE);//注意每次按下按键才清一次屏
-  338   2              func_index = code_table[func_index].down;//功能函数的索引值为数组中的down索引值
-  339   2          }
-  340   1      
-  341   1          if(key3_flag)
-  342   1          {
-  343   2              key3_flag = 0;//使用按键之后，应该清除标志位
-  344   2              ips114_clear(BLUE);//注意每次按下按键才清一次屏
-  345   2              func_index = code_table[func_index].enter;//功能函数的索引值为数组中的enter索引值
-  346   2          }
-  347   1      
-  348   1          if(key4_flag)
-  349   1          {
-  350   2              key4_flag = 0;//使用按键之后，应该清除标志位
-  351   2      //        if(fun==5){;}
-  352   2      //        else if(fun==6)
-  353   2      //        {
-  354   2      //            k -= 1;
-  355   2      //        }
-  356   2      //        else if(fun==7)
-  357   2      //            Dir_P -= 0.1 ;
-  358   2      //        else if(fun==8)
-  359   2      //            Dir_D -= 1 ;
-  360   2      //        else if(fun==9)
-  361   2      //            L_Speed_Kp -= 0.1;
-  362   2      //        else if(fun==10)
-  363   2      //            L_Speed_Ki -= 0.05;
-  364   2      //        else if(fun==11)
-  365   2      //            L_Speed_Kd -= 0.1;
-  366   2      //        else if(fun==12)
-  367   2      //            GoalSpeed_L -= 100;
-  368   2          }
-  369   1      
-  370   1          if(key5_flag)
-  371   1          {
-  372   2              key5_flag = 0;//使用按键之后，应该清除标志位
-  373   2      //        if(fun==5){;}
-  374   2      //        else if(fun==6)
-  375   2      //        {
-  376   2      //            j -= 1;
-  377   2      //        }
-  378   2      //        else if(fun==7)
-  379   2      //            Dir_P += 0.1 ;
-  380   2      //        else if(fun==8)
-  381   2      //            Dir_D += 1 ;
-  382   2      //        else if(fun==9)
-  383   2      //            L_Speed_Kp += 0.1;
-  384   2      //        else if(fun==10)
-  385   2      //            L_Speed_Ki += 0.05;
-  386   2      //        else if(fun==11)
-  387   2      //            L_Speed_Kd += 0.1;
-C251 COMPILER V5.60.0,  menu                                                               08/05/22  22:12:46  PAGE 7   
+  322   1          //标志位置位之后，可以使用标志位执行自己想要做的事件
+  323   1          if(key1_flag)
+  324   1          {
+  325   2              key1_flag = 0;//使用按键之后，应该清除标志位
+  326   2              ips114_clear(BLUE);//注意每次按下按键才清一次屏
+  327   2              func_index = code_table[func_index].up;//功能函数的索引值为数组中的up索引值
+  328   2          }
+  329   1      
+  330   1          if(key2_flag)
+  331   1          {
+  332   2              key2_flag = 0;//使用按键之后，应该清除标志位
+  333   2              ips114_clear(BLUE);//注意每次按下按键才清一次屏
+  334   2              func_index = code_table[func_index].down;//功能函数的索引值为数组中的down索引值
+  335   2          }
+  336   1      
+  337   1          if(key3_flag)
+  338   1          {
+  339   2              key3_flag = 0;//使用按键之后，应该清除标志位
+  340   2              ips114_clear(BLUE);//注意每次按下按键才清一次屏
+  341   2              func_index = code_table[func_index].enter;//功能函数的索引值为数组中的enter索引值
+  342   2          }
+  343   1      
+  344   1          if(key4_flag)
+  345   1          {
+  346   2              key4_flag = 0;//使用按键之后，应该清除标志位
+  347   2              if(fun==6)
+  348   2                  steer_KP        -= 0.05;
+  349   2              else if(fun==7)
+  350   2                  steer_KD        -= 0.1 ;
+  351   2              else if(fun==8)
+  352   2                  L_Speed_KP      -= 5 ;
+  353   2              else if(fun==9)
+  354   2                  L_Speed_KI      -= 0.2;
+  355   2              else if(fun==10)
+  356   2                  R_Speed_KP      -= 5;
+  357   2              else if(fun==11)
+  358   2                  R_Speed_KI      -= 0.2;
+  359   2              else if(fun==12)
+  360   2                  Target_Speed_L  -= 10;
+  361   2              else if(fun==13)
+  362   2                  Target_Speed_R  -= 10;
+  363   2          }
+  364   1      
+  365   1          if(key5_flag)
+  366   1          {
+  367   2              key5_flag = 0;//使用按键之后，应该清除标志位
+  368   2              if(fun==6)
+  369   2                  steer_KP        += 0.05;
+  370   2              else if(fun==7)
+  371   2                  steer_KD        += 0.1 ;
+  372   2              else if(fun==8)
+  373   2                  L_Speed_KP      += 5 ;
+  374   2              else if(fun==9)
+  375   2                  L_Speed_KI      += 0.2;
+  376   2              else if(fun==10)
+  377   2                  R_Speed_KP      += 5;
+  378   2              else if(fun==11)
+  379   2                  R_Speed_KI      += 0.2;
+  380   2              else if(fun==12)
+  381   2                  Target_Speed_L  += 10;
+  382   2              else if(fun==13)
+  383   2                  Target_Speed_R  += 10;
+  384   2          }
+  385   1      
+  386   1      
+  387   1          current_operation_index = code_table[func_index].current_operation;
+C251 COMPILER V5.60.0,  menu                                                               15/05/22  14:42:15  PAGE 7   
 
-  388   2      //        else if(fun==12)
-  389   2      //            GoalSpeed_L += 100;
-  390   2          }
-  391   1      
-  392   1      
-  393   1          current_operation_index = code_table[func_index].current_operation;
-  394   1          (*current_operation_index)();//执行当前操作函数
-  395   1      }
+  388   1          (*current_operation_index)();//执行当前操作函数
+  389   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       888     ------
+  code size            =      3457     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
@@ -435,7 +429,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =       334     ------
+  hconst size          =       485     ------
 End of Module Information.
 
 

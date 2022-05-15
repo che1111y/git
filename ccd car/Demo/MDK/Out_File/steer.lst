@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  steer                                                              08/05/22  22:33:11  PAGE 1   
+C251 COMPILER V5.60.0,  steer                                                              15/05/22  11:18:40  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE steer
@@ -66,7 +66,7 @@ stmt  level    source
    55          //        if(cbh>=-30)
    56          //        {
    57          //          steer_KP = 4.8;
-C251 COMPILER V5.60.0,  steer                                                              08/05/22  22:33:11  PAGE 2   
+C251 COMPILER V5.60.0,  steer                                                              15/05/22  11:18:40  PAGE 2   
 
    58          //          steer_KD = 65;
    59          //        }
@@ -135,7 +135,7 @@ Module Information          Static   Overlayable
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
-C251 COMPILER V5.60.0,  steer                                                              08/05/22  22:33:11  PAGE 3   
+C251 COMPILER V5.60.0,  steer                                                              15/05/22  11:18:40  PAGE 3   
 
   pdata size           =    ------     ------
   xdata size           =    ------     ------

@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  SEEKFREE_TSL1401                                                   08/05/22  22:12:42  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_TSL1401                                                   15/05/22  11:18:37  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_TSL1401
@@ -66,7 +66,7 @@ stmt  level    source
    50   1          adc_init(AD_CHANNEL,0X01); 
    51   1                      adc_init(AD_CHANNEL2,0X01);     
    52   1                      pit_timer_ms(TIM_4,10);
-C251 COMPILER V5.60.0,  SEEKFREE_TSL1401                                                   08/05/22  22:12:42  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_TSL1401                                                   15/05/22  11:18:37  PAGE 2   
 
    53   1      }
    54          
@@ -134,7 +134,7 @@ stmt  level    source
   111   1          CCD_SI2(0);
   112   1              CCD_CLK2(0);
   113   1          CCD_SI2(1);
-C251 COMPILER V5.60.0,  SEEKFREE_TSL1401                                                   08/05/22  22:12:42  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_TSL1401                                                   15/05/22  11:18:37  PAGE 3   
 
   114   1          CCD_CLK2(1);
   115   1          CCD_SI2(0);

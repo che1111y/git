@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  element                                                            08/05/22  22:49:14  PAGE 1   
+C251 COMPILER V5.60.0,  element                                                            15/05/22  11:18:41  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE element
@@ -66,7 +66,7 @@ stmt  level    source
    55   1          switch(sideway_flag){
    56   2              case 1:
    57   2                  Steer_PWMoutput = 635;
-C251 COMPILER V5.60.0,  element                                                            08/05/22  22:49:14  PAGE 2   
+C251 COMPILER V5.60.0,  element                                                            15/05/22  11:18:41  PAGE 2   
 
    58   2                  d_cnt++;
    59   2                  if(d_cnt == 750){
@@ -134,7 +134,7 @@ stmt  level    source
   121   3                               }
   122   2                       }
   123   1              if(Lboundary_data<10&&Rboundary_data>120
-C251 COMPILER V5.60.0,  element                                                            08/05/22  22:49:14  PAGE 3   
+C251 COMPILER V5.60.0,  element                                                            15/05/22  11:18:41  PAGE 3   
 
   124   1                      &&Lboundary_data2>40&&Rboundary_data2<80
   125   1                      &&flag_0 == 1)
@@ -202,7 +202,7 @@ stmt  level    source
   187   1              
   188   1              if(Lboundary_data<15&&Rboundary_data>115
   189   1                      &&Broad_width2>15
-C251 COMPILER V5.60.0,  element                                                            08/05/22  22:49:14  PAGE 4   
+C251 COMPILER V5.60.0,  element                                                            15/05/22  11:18:41  PAGE 4   
 
   190   1                      &&sc_flag == 4)
   191   1              {
@@ -241,14 +241,15 @@ stmt  level    source
   224   1          if(sc_flag == 1||sc_flag == 2||sc_flag == 3
   225   1            ||sc_flag == 5||sc_flag == 6||sc_flag == 7)
   226   1          {
-  227   2              Target_Speed = 140;
-  228   2          }
-  229   1      }
+  227   2              Target_Speed_L = 140;
+  228   2              Target_Speed_R = 140;
+  229   2          }
+  230   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =      1016     ------
+  code size            =      1020     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------

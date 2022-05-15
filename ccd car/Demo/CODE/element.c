@@ -224,6 +224,7 @@ void ccd_sc()
     if(sc_flag == 1||sc_flag == 2||sc_flag == 3
       ||sc_flag == 5||sc_flag == 6||sc_flag == 7)
     {
-        Target_Speed = 140;
+        Target_Speed_L = 140;
+        Target_Speed_R = 140;
     }
 }

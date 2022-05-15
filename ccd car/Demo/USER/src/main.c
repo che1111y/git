@@ -13,6 +13,7 @@ void main()
 	EnableGlobalIRQ();
     while(1)
 	{              
+        Key_Driver();
 //        wireless_ch573_send_buff(send_test_dat, sizeof(send_test_dat)); //初始化正常 输出测试信息  
 //		P52 = 0;	
         //delay_ms(1000);        

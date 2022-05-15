@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  ccd                                                                08/05/22  22:12:45  PAGE 1   
+C251 COMPILER V5.60.0,  ccd                                                                15/05/22  11:18:41  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE ccd
@@ -66,7 +66,7 @@ stmt  level    source
    55   2              ccd_value[i] = ccd_sum[i] / 3;
    56   2           }
    57   1           
-C251 COMPILER V5.60.0,  ccd                                                                08/05/22  22:12:45  PAGE 2   
+C251 COMPILER V5.60.0,  ccd                                                                15/05/22  11:18:41  PAGE 2   
 
    58   1      }
    59          
@@ -134,7 +134,7 @@ stmt  level    source
   121          uint16 CCD_Average(uint8 *image)
   122          {
   123   1              uint8 i;
-C251 COMPILER V5.60.0,  ccd                                                                08/05/22  22:12:45  PAGE 3   
+C251 COMPILER V5.60.0,  ccd                                                                15/05/22  11:18:41  PAGE 3   
 
   124   1              uint16 sum = 0;
   125   1              uint16 ccd_average1;
@@ -202,7 +202,7 @@ stmt  level    source
   187   2              else  if(j==128)
   188   2              {
   189   3                  all_black2 = 1;
-C251 COMPILER V5.60.0,  ccd                                                                08/05/22  22:12:45  PAGE 4   
+C251 COMPILER V5.60.0,  ccd                                                                15/05/22  11:18:41  PAGE 4   
 
   190   3              }
   191   2              
@@ -270,7 +270,7 @@ stmt  level    source
   253   4                                                                      Rboundary_black2 = 123;
   254   4                                                      }
   255   3                                      } 
-C251 COMPILER V5.60.0,  ccd                                                                08/05/22  22:12:45  PAGE 5   
+C251 COMPILER V5.60.0,  ccd                                                                15/05/22  11:18:41  PAGE 5   
 
   256   2          
   257   2                                      for(i=mid;i>=5;i--)
@@ -338,7 +338,7 @@ stmt  level    source
   319   1          //ccd_data[128]//128个数据，中间64，从64向左右扫描
   320   1          for(i=mid;i<123;i++)
   321   1          {
-C251 COMPILER V5.60.0,  ccd                                                                08/05/22  22:12:45  PAGE 6   
+C251 COMPILER V5.60.0,  ccd                                                                15/05/22  11:18:41  PAGE 6   
 
   322   2              ccd_cbh11=(float)(ccd_value[i]-ccd_value[i+5])/(ccd_value[i]+ccd_value[i+5])*1000;
   323   2      
@@ -406,7 +406,7 @@ stmt  level    source
   385   1                      road_width2 = Rboundary_data2 - Lboundary_data2;
   386   1                      Broad_width1 = Rboundary_black - Lboundary_black;
   387   1                      Broad_width2 = Rboundary_black2 - Lboundary_black2;
-C251 COMPILER V5.60.0,  ccd                                                                08/05/22  22:12:45  PAGE 7   
+C251 COMPILER V5.60.0,  ccd                                                                15/05/22  11:18:41  PAGE 7   
 
   388   1      }
   389          

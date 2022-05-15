@@ -53,5 +53,6 @@
 #include "encoder.h"
 #include "element.h"
 #include "ccd.h"
+#include "menu.h"
 
 #endif

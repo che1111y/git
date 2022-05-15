@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  main                                                               08/05/22  22:12:43  PAGE 1   
+C251 COMPILER V5.60.0,  main                                                               15/05/22  11:18:39  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE main
@@ -24,22 +24,23 @@ stmt  level    source
    13   1              EnableGlobalIRQ();
    14   1          while(1)
    15   1              {              
-   16   2      //        wireless_ch573_send_buff(send_test_dat, sizeof(send_test_dat)); //初始化正常 输出测试信息  
-   17   2      //              P52 = 0;        
-   18   2              //delay_ms(1000);        
-   19   2              //bee = 0;
-   20   2              //NiMing(encoder_left, encoder_right, Right_Duty, Left_Duty, Target_Speed);
-   21   2              //ccd_up();
-   22   2              //VCAN();
-   23   2              //wx_key();
-   24   2          }
-   25   1      }
-   26          
+   16   2              Key_Driver();
+   17   2      //        wireless_ch573_send_buff(send_test_dat, sizeof(send_test_dat)); //初始化正常 输出测试信息  
+   18   2      //              P52 = 0;        
+   19   2              //delay_ms(1000);        
+   20   2              //bee = 0;
+   21   2              //NiMing(encoder_left, encoder_right, Right_Duty, Left_Duty, Target_Speed);
+   22   2              //ccd_up();
+   23   2              //VCAN();
+   24   2              //wx_key();
+   25   2          }
+   26   1      }
+   27          
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =        26     ------
+  code size            =        29     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------

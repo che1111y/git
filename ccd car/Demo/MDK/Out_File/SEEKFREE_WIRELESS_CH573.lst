@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  SEEKFREE_WIRELESS_CH573                                            08/05/22  22:12:43  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_WIRELESS_CH573                                            15/05/22  11:18:38  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_WIRELESS_CH573
@@ -66,7 +66,7 @@ stmt  level    source
    47          //  Sample usage:       
    48          //  @note       
    49          //-------------------------------------------------------------------------------------------------------
-C251 COMPILER V5.60.0,  SEEKFREE_WIRELESS_CH573                                            08/05/22  22:12:43  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_WIRELESS_CH573                                            15/05/22  11:18:38  PAGE 2   
 
              -------------
    50          void wireless_ch573_init(void)
@@ -135,7 +135,7 @@ Module Information          Static   Overlayable
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
-C251 COMPILER V5.60.0,  SEEKFREE_WIRELESS_CH573                                            08/05/22  22:12:43  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_WIRELESS_CH573                                            15/05/22  11:18:38  PAGE 3   
 
   ebitaddressable size =    ------     ------
   far data size        =    ------     ------
